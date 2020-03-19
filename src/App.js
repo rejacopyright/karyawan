@@ -1,26 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, {Component} from 'react';
+import Routes from './routes';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import './assets/js/app';
+import './assets/scss/bootstrap.scss';
+import './assets/scss/icons.scss';
+import './assets/scss/app.scss';
+import './assets/scss/custom.scss';
+class App extends Component  {
+  render() {
+    return (
+      <Routes />
+    );
+  }
 }
-
 export default App;
