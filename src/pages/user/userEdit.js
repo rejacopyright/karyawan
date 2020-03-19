@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import con from '../../con/api';
+import fire from '../../con/fire';
 // import Avatar from '../../assets/images/users/avatar-1.jpg';
 import '../../assets/libs/smartwizard/smart_wizard_theme_arrows.min.scss';
 class Dashboard extends React.Component {
@@ -68,7 +69,7 @@ class Dashboard extends React.Component {
     if (q.name && q.email && q.username) {
       axios.post(con.api+'/user/update', q, {headers:con.headers})
       .then(res => {
-        console.log(res.data);
+        fire.set(Date.now());
       });
     }
   }

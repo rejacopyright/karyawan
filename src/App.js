@@ -6,6 +6,7 @@ import './assets/scss/bootstrap.scss';
 import './assets/scss/icons.scss';
 import './assets/scss/app.scss';
 import './assets/scss/custom.scss';
+
 class App extends Component  {
   render() {
     return (
