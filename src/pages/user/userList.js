@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import con from '../../con/api';
+import fire from '../../con/fire';
 import Modal from '../../components/modal';
 import Avatar from '../../assets/images/users/avatar.png';
 class Dashboard extends Component {
@@ -15,10 +16,12 @@ class Dashboard extends Component {
   }
   componentDidMount() {
     this._isMounted = true;
-    document.title = 'List User';
-    this._isMounted && axios.get(con.api+'/user', {headers:con.headers, params:{page:this.state.users_page}})
-    .then(res => {
-      this.setState({ users:res.data, loading:false });
+    document.title = 'List Karyawan';
+    fire.on('value', () => {
+      this._isMounted && axios.get(con.api+'/user', {headers:con.headers, params:{page:this.state.users_page}})
+      .then(res => {
+        this.setState({ users:res.data, loading:false });
+      });
     });
   }
   userDetail(userId){
@@ -50,7 +53,7 @@ class Dashboard extends Component {
           <div className="container-fluid">
             <div className="row page-title">
               <div className="col-12">
-                <h4 className="mb-1 mt-0">List User</h4>
+                <h4 className="mb-1 mt-0">List Karyawan</h4>
               </div>
             </div>
             <div className="row">
