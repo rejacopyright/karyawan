@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import con from '../../con/api';
+import fire from '../../con/fire';
 import Avatar from '../../assets/images/users/avatar.png';
 class Dashboard extends Component {
   _isMounted = false;
@@ -12,11 +13,13 @@ class Dashboard extends Component {
   componentDidMount() {
     this._isMounted = true;
     const userId = this.props.match.params.userId;
-    this._isMounted && axios.get(con.api+'/user/detail/'+userId, {headers:con.headers})
-    .then(res => {
-      if (res.data.images.length) { this.setState({ avatar:'data:image/jpeg;base64,'+res.data.images[0].base }); }
-      this.setState({ user:res.data.user, loading:false });
-    }).then(() => (document.title = this.state.user.name));
+    fire.on('value', () => {
+      this._isMounted && axios.get(con.api+'/user/detail/'+userId, {headers:con.headers})
+      .then(res => {
+        if (res.data.images.length) { this.setState({ avatar:'data:image/jpeg;base64,'+res.data.images[0].base }); }
+        this.setState({ user:res.data.user, loading:false });
+      }).then(() => (document.title = this.state.user.name));
+    });
   }
   render() {
     return (

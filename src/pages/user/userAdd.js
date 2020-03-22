@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import con from '../../con/api';
+import fire from '../../con/fire';
 // import Avatar from '../../assets/images/users/avatar-1.jpg';
 import '../../assets/libs/smartwizard/smart_wizard_theme_arrows.min.scss';
 class Dashboard extends React.Component {
@@ -54,6 +55,7 @@ class Dashboard extends React.Component {
     if (q.name && q.email && q.username) {
       axios.post(con.api+'/user/store', q, {headers:con.headers})
       .then(res => {
+        fire.set(Date.now());
         console.log(res.data);
       });
     }
@@ -64,7 +66,7 @@ class Dashboard extends React.Component {
         <div className="content">
           <div className="container-fluid">
             <div className="row page-title">
-              <div className="col-md-12">
+              <div className="col-auto">
                 <Link to="/user/list"> <h4 className="mb-1 mt-0"> <i className="uil uil-arrow-left" /> Add New User </h4> </Link>
               </div>
             </div>

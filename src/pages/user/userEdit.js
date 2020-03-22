@@ -79,7 +79,7 @@ class Dashboard extends React.Component {
         <div className="content">
           <div className="container-fluid">
             <div className="row page-title">
-              <div className="col-md-12">
+              <div className="col-auto">
                 <Link to="/user/list"> <h4 className="mb-1 mt-0 text-capitalize"> <i className="uil uil-arrow-left" /> {this.state.user.name} </h4> </Link>
               </div>
             </div>

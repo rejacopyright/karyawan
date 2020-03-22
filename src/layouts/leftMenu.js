@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
 class Footer extends Component {
   render() {
     return (
@@ -33,7 +34,7 @@ class Footer extends Component {
                 <span>Lock Screen</span>
               </Link>
               <div className="dropdown-divider"></div>
-              <Link to="#" className="dropdown-item notify-item">
+              <Link to="#" className="dropdown-item notify-item" onClick={() => this.props.handleLogout()}>
                 <i data-feather="log-out" className="icon-dual icon-xs mr-2"></i>
                 <span>Logout</span>
               </Link>
@@ -74,4 +75,10 @@ class Footer extends Component {
     );
   }
 }
-export default Footer;
+
+const mapDispatch = (dispatch) => {
+  return {
+    handleLogout : () => dispatch({type:'LOGOUT'})
+  }
+}
+export default connect(state => state, mapDispatch)(Footer);
