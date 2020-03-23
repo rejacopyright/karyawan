@@ -17,7 +17,7 @@ class Footer extends Component {
               <span data-feather="chevron-down"></span>
             </Link>
             <div className="dropdown-menu profile-dropdown">
-              <Link to="#" className="dropdown-item notify-item">
+              <Link to="/account" className="dropdown-item notify-item">
                 <i data-feather="user" className="icon-dual icon-xs mr-2"></i>
                 <span>My Account</span>
               </Link>

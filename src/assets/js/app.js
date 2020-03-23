@@ -103,26 +103,29 @@ $(function(){
             $(this).parent().parent().parent().parent().parent().addClass("mm-active");
           }
         });
-        $("#menu-bar a").on('click', function (e) {
-          var link = $("#menu-bar a");
-          link.removeClass("active");
-          link.parent().removeClass("mm-active");
-          link.parent().parent().prev().removeClass("active");
-          link.parent().parent().parent().removeClass("mm-active");
-          link.parent().parent().parent().parent().parent().removeClass("mm-active");
-          if (!($(this).parent().find('ul').length)) {
-            link.attr('aria-expanded', false);
-            link.parent().parent().removeClass("mm-show");
-            link.parent().parent().parent().parent().removeClass("mm-show");
-          }
+        $("#menu-bar a").on('click', function () {
+          var $this = $(this);
+          $(document).ready(function() {
+            var pageUrl = window.location.pathname;
+            if ($this.attr('href') === pageUrl) {
+              var link = $("#menu-bar a");
+              link.removeClass("active");
+              link.parent().removeClass("mm-active");
+              link.parent().parent().prev().removeClass("active");
+              link.parent().parent().parent().removeClass("mm-active");
+              link.parent().parent().parent().parent().parent().removeClass("mm-active");
+              link.parent().parent().removeClass("mm-show");
+              link.parent().parent().parent().parent().removeClass("mm-show");
 
-          $(this).addClass("active");
-          $(this).parent().addClass("mm-active");
-          $(this).parent().parent().addClass("mm-show");
-          $(this).parent().parent().prev().addClass("active");
-          $(this).parent().parent().parent().addClass("mm-active");
-          $(this).parent().parent().parent().parent().addClass("mm-show");
-          $(this).parent().parent().parent().parent().parent().addClass("mm-active");
+              $this.addClass("active");
+              $this.parent().addClass("mm-active"); // add active to li of the current link
+              $this.parent().parent().addClass("mm-show");
+              $this.parent().parent().prev().addClass("active"); // add active class to an anchor
+              $this.parent().parent().parent().addClass("mm-active");
+              $this.parent().parent().parent().parent().addClass("mm-show"); // add active to li of the current link
+              $this.parent().parent().parent().parent().parent().addClass("mm-active");
+            }
+          });
         });
       } else {
         var menuRef = new MetisMenu('#menu-bar').on('shown.metisMenu', function (event) {

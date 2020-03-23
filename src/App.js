@@ -13,7 +13,7 @@ import './assets/scss/custom.scss';
 
 class App extends Component  {
   componentDidMount() {
-    document.title = 'Dash';
+    document.title = 'Dashboard';
   }
   render() {
     return (

@@ -1,11 +1,28 @@
 import React, {Component, Suspense} from 'react'
 import { Switch, Route } from "react-router-dom";
+import { withRouter } from 'react-router';
+import {connect} from 'react-redux';
+import cookie from 'js-cookie';
 const Dashboard = React.lazy(() => import('../pages/dashboard'));
 const UserList = React.lazy(() => import('../pages/user/userList'));
 const UserAdd = React.lazy(() => import('../pages/user/userAdd'));
 const UserEdit = React.lazy(() => import('../pages/user/userEdit'));
 const UserDetail = React.lazy(() => import('../pages/user/userDetail'));
+const MyAccount = React.lazy(() => import('../pages/account.js'));
 class Routes extends Component {
+  componentDidMount() {
+    this.unlisten = this.props.history.listen((location, action) => {
+      if (!cookie.getJSON('auth')) {
+        this.props.dispatch({type:'LOGOUT'});
+      }
+    });
+    window.addEventListener('mouseover', () => {
+      console.log("mouseover");
+    });
+  }
+  componentWillUnmount() {
+    this.unlisten();
+  }
   render() {
     return (
       <Suspense fallback={<div>Loadings...</div>}>
@@ -15,6 +32,7 @@ class Routes extends Component {
           <Route exact path="/user/add" component={UserAdd} />
           <Route exact path="/user/detail/:userId" component={UserDetail} />
           <Route exact path="/user/edit/:userId" component={UserEdit} />
+          <Route exact path="/account" component={MyAccount} />
           {/* HANDLE PAGE */}
           <Route exact path="*" component={Dashboard} />
         </Switch>
@@ -23,4 +41,4 @@ class Routes extends Component {
   }
 }
 
-export default Routes;
+export default connect()(withRouter(Routes));
