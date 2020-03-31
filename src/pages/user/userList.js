@@ -4,7 +4,9 @@ import axios from 'axios';
 import con from '../../con/api';
 import fire from '../../con/fire';
 import Modal from '../../components/modal';
+import Skeleton from 'react-skeleton-loader';
 import Avatar from '../../assets/images/users/avatar.png';
+
 class Dashboard extends Component {
   _isMounted = false;
   state = {
@@ -58,9 +60,23 @@ class Dashboard extends Component {
             </div>
             <div className="row">
               {
+                Object.keys(this.state.users).length === 0 && [1,2,3,4].map((r, key) => (
+                  <div key={key} className="col-md-3 col-6 text-center">
+                    <div className="card radius-20">
+                      <div className="card-body">
+                        <Skeleton width="90px" height="90px" count={1} widthRandomness={0} color="#f5f5f5" borderRadius="100px" />
+                        <div className="mb-3"></div>
+                        <Skeleton width="100%" height="" count={2} widthRandomness={0} color="#f5f5f5" />
+                        <Skeleton width="100%" height="100px" count={1} widthRandomness={0} color="#f5f5f5" />
+                      </div>
+                    </div>
+                  </div>
+                ))
+              }
+              {
                 this.state.users.map((r, key) => (
-                  <div className="col-md-3 col-sm-6" key={key}>
-                    <div className="card">
+                  <div className="col-md-3 col-6" key={key}>
+                    <div className="card radius-20">
                       <div className="card-body px-2 py-0">
                         <div className="text-center mt-3">
                           {

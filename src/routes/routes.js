@@ -11,17 +11,21 @@ const UserDetail = React.lazy(() => import('../pages/user/userDetail'));
 const MyAccount = React.lazy(() => import('../pages/account.js'));
 class Routes extends Component {
   componentDidMount() {
-    this.unlisten = this.props.history.listen((location, action) => {
+    const expired =() => {
       if (!cookie.getJSON('auth')) {
         this.props.dispatch({type:'LOGOUT'});
       }
+    }
+    this.unlisten = this.props.history.listen((location, action) => {
+      expired();
     });
-    window.addEventListener('mouseover', () => {
-      console.log("mouseover");
-    });
+    window.addEventListener('mouseover', expired);
+    window.addEventListener('focus', expired);
   }
   componentWillUnmount() {
     this.unlisten();
+    window.removeEventListener('mouseover', {});
+    window.removeEventListener('focus', {});
   }
   render() {
     return (

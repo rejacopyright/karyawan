@@ -22,7 +22,7 @@ const reducer = (state = init, action) => {
     return {...state, message: action.value}
   }
   if (action.type === 'LOGIN') {
-    let exp = moment().add(10, 'm').toDate();
+    let exp = moment().add(10, 'h').toDate();
     Cookies.set('user', action.value, { expires: exp });
     Cookies.set('auth', true, { expires: exp });
     return {...state, auth: true}

@@ -1,5 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import Routes from './routes';
+import guestRoutes from './routes/registerGuestRouter';
+import Guest from './guest';
 // Cookies
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
@@ -19,8 +21,10 @@ class App extends Component  {
     return (
       <Fragment>
         {
-          Cookies.getJSON('auth') ?
+          Cookies.getJSON('auth') && !guestRoutes.includes(window.location.pathname) ?
           <Routes /> :
+          guestRoutes.includes(window.location.pathname) ?
+          <Guest /> :
           <Login />
         }
       </Fragment>

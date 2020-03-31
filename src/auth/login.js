@@ -5,6 +5,9 @@ import con from '../con/api';
 // INIT JS
 import feather from 'feather-icons';
 class Login extends Component {
+  state = {
+    loading: false
+  }
   componentDidMount() {
     require('../assets/js/app');
     feather.replace();
@@ -14,6 +17,7 @@ class Login extends Component {
   }
   submit(e){
     e.preventDefault();
+    this.setState({ loading:true });
     const q = {};
     q['username'] = this.props.username;
     q['password'] = this.props.password;
@@ -22,6 +26,7 @@ class Login extends Component {
         this.props.handleLogin(res.data);
       }else {
         this.props.handleMessage(res.data.message);
+        this.setState({ loading:false });
       }
     });
   }
@@ -36,10 +41,10 @@ class Login extends Component {
                   <div className="row">
                     <div className="col px-5 py-4 border-right border-1">
                       <div className="mx-auto mb-4">
-                        <a href="index.html">
+                        <span>
                           <img src={require("../assets/images/logo.png")} className="mr-2" alt="" height={25} />
                           <h3 className="d-inline align-middle ml-1 text-logo">Sugihart</h3>
-                        </a>
+                        </span>
                       </div>
                       <h5 className="mb-0"> Login </h5>
                       <div className="badge badge-soft-danger h5 px-2">{this.props.message}</div>
@@ -47,18 +52,23 @@ class Login extends Component {
                       <form action="#" className="authentication-form" onSubmit={this.submit.bind(this)}>
                         <div className="form-group">
                           <div className="input-group input-group-merge">
-                            <div className="input-group-prepend"> <span className="input-group-text bg-light border-0"> <i className="icon-dual" data-feather="user" /> </span> </div>
+                            <div className="input-group-prepend"> <span className="input-group-text bg-light border-0"> <i className="icon-dual text-gray" data-feather="user" /> </span> </div>
                             <input type="text" name="username" className="form-control bg-light border-0" placeholder="Username" onChange={i => this.props.handleUsername(i)} autoFocus={true} />
                           </div>
                         </div>
                         <div className="form-group">
                           <div className="input-group input-group-merge">
-                            <div className="input-group-prepend"> <span className="input-group-text bg-light border-0"> <i className="icon-dual" data-feather="key" /> </span> </div>
+                            <div className="input-group-prepend"> <span className="input-group-text bg-light border-0"> <i className="icon-dual text-gray" data-feather="key" /> </span> </div>
                             <input type="text" name="password" className="form-control bg-light border-0" placeholder="Password" onChange={i => this.props.handlePassword(i)} />
                           </div>
                         </div>
                         <div className="form-group mb-0 text-center">
-                          <button className="btn btn-primary btn-block" type="submit"> Login </button>
+                          {
+                            this.state.loading ?
+                            <button className="btn btn-light btn-block" type="button" disabled> Menunggu verifikasi.. </button>
+                            :
+                            <button className="btn btn-primary btn-block" type="submit"> Login </button>
+                          }
                         </div>
                       </form>
                     </div>
@@ -70,7 +80,7 @@ class Login extends Component {
               </div>
               <div className="row mt-3">
                 <div className="col-12 text-center">
-                  <p className="text-muted"> Back to <a href="pages-login.html" className="text-primary font-weight-bold ml-1">Login</a> </p>
+                  <p className="text-muted"> Don't have account ? Let <span className="text-primary font-weight-bold ml-1">Register</span> </p>
                 </div>
               </div>
             </div>
