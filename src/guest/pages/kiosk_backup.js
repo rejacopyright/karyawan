@@ -1,4 +1,5 @@
 import React from 'react'
+import Webcam from "react-webcam"
 import con from "../../con/api"
 
 class KiosK extends React.Component {
@@ -35,13 +36,10 @@ class KiosK extends React.Component {
               <div className="col-6 pt-3">
                 <div className="card oh radius-10 shadow position-sticky" style={{ top: '5.5rem' }}>
                   <div className="card-body p-0">
-                    <div className="mx-auto radius-10 border border-gray oh position-relative">
-                      <div className="same-100 border border-1 border-danger radius-10 position-absolute bg-primary" style={{ top: '25%', left: '25%', opacity: 0.25 }} />
-                      <img src={require('../../assets/images/attached/img-1.jpg')} alt="" className="w-100"/>
-                    </div>
-                    <hr className="my-2"/>
+                    <Webcam onUserMedia={this.onUserMedia.bind(this)} audio={false} height='auto' ref={i => this.webcamRef = i} screenshotFormat="image/jpeg" width='100%' videoConstraints={{facingMode: "user"}} mirrored={true} />
+                    <hr/>
                     <div className="row">
-                      <div className="col-12 text-center mb-2">
+                      <div className="col-12 text-center">
                         Title Here
                       </div>
                     </div>
@@ -52,7 +50,10 @@ class KiosK extends React.Component {
                 <div className="border-bottom border-1 text-center mb-2">
                   <div className="btn btn-rounded btn-block btn-primary border-0 radius-0 mb-3">RENDERED</div>
                 </div>
-                listing
+                <div className="same-200 mx-auto radius-10 border border-gray oh position-relative">
+                  <div className="same-100 border border-1 border-danger radius-10 position-absolute bg-primary" style={{ top: '25%', left: '25%', opacity: 0.25 }} />
+                  <img src={this.state.images} alt="" className="h-100"/>
+                </div>
               </div>
             </div>
           </div>

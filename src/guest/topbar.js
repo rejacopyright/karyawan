@@ -13,8 +13,7 @@ class Footer extends Component {
           <ul className="navbar-nav bd-navbar-nav flex-row list-unstyled menu-left mb-0">
             <li>
               <button className="button-menu-mobile open-left disable-btn">
-                <i data-feather="menu" className="menu-icon" />
-                <i data-feather="x" className="close-icon" />
+                <img src={require('../assets/images/logo.png')} alt="img" height={24} />
               </button>
             </li>
           </ul>
