@@ -10,10 +10,10 @@ class KiosK extends React.Component {
   }
   componentDidMount() {
     // this.img.src = 'http://192.168.92.252/backend/public/img/capture1.jpg?'+Date.now();
-    this.fetchImage = setInterval( () => this.img.src = 'http://192.168.92.252/backend/public/img/capture1.jpg?'+Date.now(), 70 );
+    this.fetchImage = setInterval( () => this.img.src = 'http://localhost/api-karyawan/public/img/capture1.jpg?'+Date.now(), 70 );
     // axios.get('http://192.168.92.252/backend/api/image_data').then(res => this.setState({ images:`data:image/jpeg;base64,${res.data}` }));
     this.fetchData = setInterval(() => {
-      axios.get('http://192.168.92.252/backend/api/user/absen').then(res => {
+      axios.get('http://localhost/api-karyawan/api/user/absen').then(res => {
         console.log(res.data.absen);
         this.setState({
           absen:res.data.absen,
