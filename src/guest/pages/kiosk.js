@@ -20,7 +20,7 @@ class KiosK extends React.Component {
           belum:res.data.belum
         });
       });
-    }, 5000);
+    }, 500);
   }
   componentWillUnmount() {
     clearInterval(this.fetchImage);
