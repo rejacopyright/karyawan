@@ -1,9 +1,9 @@
-import React from 'react';
-import Chart from 'react-apexcharts';
+import React from 'react'
+import Chart from 'react-apexcharts'
 import moment from 'moment';
 import 'moment/locale/id';
 
-class Dashboard extends React.Component {
+class Grafik extends React.Component {
   _isMounted = false;
   state = {
     series: [
@@ -68,31 +68,24 @@ class Dashboard extends React.Component {
     });
   }
   componentDidMount() {
-    document.title = 'Dashboard';
-    this.timerID = setInterval( () => this.realtime(), 1000 );
+    this.timerID = setInterval( () => this.realtime(), 5000 );
   }
   componentWillUnmount() {
     clearInterval(this.timerID);
   }
-  render() {
+  render () {
     return (
-      <div className="content-page">
-        <div className="content">
-          <div className="container-fluid">
-            <div className="row mt-3">
-              <div className="col-12">
-                <div className="card">
-                  <div className="card-body">
-                    <Chart options={this.state.options} type="area" series={this.state.series} height={350} />
-                  </div>
-                </div>
-              </div>
+      <div className={`row ${this.props.rowClass}`}>
+        <div className="col-12">
+          <div className="card">
+            <div className="card-body">
+              <Chart options={this.state.options} type="area" series={this.state.series} height={350} />
             </div>
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default Dashboard;
+export default Grafik;

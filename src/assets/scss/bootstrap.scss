@@ -52,7 +52,7 @@ body {
   line-height: 1.5;
   color: $grayDark;
   text-align: left;
-  background-color: $light; }
+  background-color: $smoke; }
 
 [tabindex="-1"]:focus {
   outline: 0 !important; }
@@ -2047,6 +2047,9 @@ textarea.form-control {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out; }
+  .btn:hover{
+    filter: brightness(.95) !important;
+  }
   @media (prefers-reduced-motion: reduce) {
     .btn {
       -webkit-transition: none;
@@ -2527,7 +2530,7 @@ input[type="button"].btn-block {
   z-index: 1000;
   display: none;
   float: left;
-  min-width: 10rem;
+  min-width: 7.5rem;
   padding: 0.5rem 0;
   margin: 0.125rem 0 0;
   font-size: 0.875rem;
@@ -2618,7 +2621,7 @@ input[type="button"].btn-block {
 .dropdown-item {
   display: block;
   width: 100%;
-  padding: 0.35rem 1.5rem;
+  padding: 0.25rem 1rem;
   clear: both;
   font-weight: 400;
   color: $dark;
@@ -2644,9 +2647,9 @@ input[type="button"].btn-block {
 
 .dropdown-header {
   display: block;
-  padding: 0.5rem 1.5rem;
+  padding: 0.25rem 1rem;
   margin-bottom: 0;
-  font-size: 0.76562rem;
+  font-size: 0.75rem;
   color: $gray;
   white-space: nowrap; }
 
@@ -2950,8 +2953,8 @@ input[type="button"].btn-block {
     border-color: $primary; }
   .custom-control-input:not(:disabled):active ~ .custom-control-label::before {
     color: $white;
-    background-color: white;
-    border-color: white; }
+    background-color: $white;
+    border-color: $white; }
   .custom-control-input:disabled ~ .custom-control-label {
     color: $gray; }
     .custom-control-input:disabled ~ .custom-control-label::before {
@@ -2970,8 +2973,8 @@ input[type="button"].btn-block {
     height: 1rem;
     pointer-events: none;
     content: "";
-    background-color: $white;
-    border: $lightGrey solid 1px; }
+    background-color: $lightGrey;
+    border: $gray solid 1px; }
   .custom-control-label::after {
     position: absolute;
     top: 0.15625rem;
@@ -3320,10 +3323,12 @@ input[type="button"].btn-block {
     border-top-right-radius: 0; }
 
 .nav-pills .nav-link {
-  border-radius: 0.3rem; }
+  border-radius: 5rem;
+}
 
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
+  border: 1px solid $primary;
   color: $white;
   background-color: $primary; }
 
@@ -4015,6 +4020,11 @@ input[type="button"].btn-block {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out; }
+  .badge-sm {
+    padding: 0.3em 0.5em;
+    font-size: 65%;
+    line-height: .9;
+  }
   @media (prefers-reduced-motion: reduce) {
     .badge {
       -webkit-transition: none;
@@ -8736,15 +8746,15 @@ input:focus {
 
 .nav-pills {
   background: $light;
-  border-radius: 0.3rem;
+  border-radius: 5rem;
   padding: 6px 2px; }
   .nav-pills .nav-link {
     background-color: transparent;
-    color: $muted; }
+    color: $dark; }
   .nav-pills .nav-link.active,
   .nav-pills .show > .nav-link {
-    color: $dark;
-    background-color: $white;
+    color: $primary;
+    background-color: $softPrimary;
     -webkit-box-shadow: 0 0.05rem 0.01rem rgba(75, 75, 90, 0.075);
             box-shadow: 0 0.05rem 0.01rem rgba(75, 75, 90, 0.075); }
 

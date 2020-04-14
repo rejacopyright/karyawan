@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios';
 import con from '../con/api';
+import { ClassicSpinner } from "react-spinners-kit";
 // INIT JS
 import feather from 'feather-icons';
 class Login extends Component {
@@ -28,6 +29,9 @@ class Login extends Component {
         this.props.handleMessage(res.data.message);
         this.setState({ loading:false });
       }
+    }).catch(err => {
+      this.props.handleMessage('Terjadi kesalahan atau koneksi bermasalah.');
+      this.setState({ loading:false });
     });
   }
   render() {
@@ -65,7 +69,7 @@ class Login extends Component {
                         <div className="form-group mb-0 text-center">
                           {
                             this.state.loading ?
-                            <button className="btn btn-light btn-block" type="button" disabled> Menunggu verifikasi.. </button>
+                              <button className="btn btn-light btn-block" type="button" disabled> Menunggu verifikasi.. </button>
                             :
                             <button className="btn btn-primary btn-block" type="submit"> Login </button>
                           }
@@ -85,6 +89,7 @@ class Login extends Component {
               </div>
             </div>
           </div>
+          { this.state.loading && <div className="overlay center"><ClassicSpinner color="#5369f8" loading={true} /></div> }
         </div>
       </div>
     );
