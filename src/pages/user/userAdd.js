@@ -4,11 +4,15 @@ import axios from 'axios';
 import con from '../../con/api';
 import fire from '../../con/fire';
 // import Avatar from '../../assets/images/users/avatar-1.jpg';
+import Notif from '../../components/notif';
+import { ClassicSpinner } from "react-spinners-kit";
 import '../../assets/libs/smartwizard/smart_wizard_theme_arrows.min.scss';
 class Dashboard extends React.Component {
   _isMounted = false;
   state = {
-    images:[]
+    images:[],
+    snackOpen: false,
+    msg: ''
   }
   componentDidMount() {
     this._isMounted = true;
@@ -16,6 +20,7 @@ class Dashboard extends React.Component {
     require('../../assets/js/pages/form-wizard.init');
   }
   componentWillUnmount() {
+    this._isMounted = false;
     delete require.cache[require.resolve('../../assets/js/pages/form-wizard.init')];
   }
   browseImage(e){
@@ -39,6 +44,7 @@ class Dashboard extends React.Component {
     this.setState({ images:images });
   }
   submit(){
+    this.setState({ loading: true });
     const form = selector => this.addForm.querySelector(selector);
     const q = {};
     q['name'] = form('input[name=name]').value;
@@ -56,8 +62,11 @@ class Dashboard extends React.Component {
       axios.post(con.api+'/user/store', q, {headers:con.headers})
       .then(res => {
         fire.set(Date.now());
+        this.setState({ loading: false }, () => this.props.history.goBack());
         console.log(res.data);
       });
+    }else {
+      this.setState({ loading: false, snackOpen: true, msg:'Mohon cek kembali data yang harus di isi.' });
     }
   }
   render() {
@@ -73,7 +82,7 @@ class Dashboard extends React.Component {
             <div className="row">
               <div className="col-12">
                 <div className="card">
-                  <div className="card-body">
+                  <div className="card-body p-0">
                     <form action="" className="form-horizontal" ref={i => this.addForm = i}>
                       <div id="smartwizard-arrows">
                         <ul>
@@ -222,6 +231,8 @@ class Dashboard extends React.Component {
                 </div>
               </div>
             </div>
+            { this.state.loading && <div className="overlay center"><ClassicSpinner color="#5369f8" loading={true} /></div> }
+            <Notif open={this.state.snackOpen} onClose={() => this.setState({ snackOpen:false })} msg={this.state.msg} theme="danger" />
           </div>
         </div>
       </div>

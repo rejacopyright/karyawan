@@ -3,6 +3,7 @@ import axios from 'axios';
 import con from '../../con/api';
 import fire from '../../con/fire';
 import Avatar from '../../assets/images/users/avatar.png';
+import { ClassicSpinner } from "react-spinners-kit";
 class Dashboard extends Component {
   _isMounted = false;
   state = {
@@ -29,6 +30,7 @@ class Dashboard extends Component {
             <div className="row pt-3">
               <div className="col-lg-3">
                 <div className="card">
+                  <div className="position-absolute same-25 center m-1 bg-light radius-5 pointer" onClick={() => this.props.history.goBack()}><i className="uil uil-arrow-left text-12" /></div>
                   <div className="card-body">
                     <div className="text-center mt-3">
                       <div className="same-100 mx-auto radius-100 border border-1 p-1 d-flex align-items-center justify-content-center oh">
@@ -58,11 +60,11 @@ class Dashboard extends Component {
               <div className="col-lg-9">
                 <div className="card">
                   <div className="card-body">
-                    <ul className="nav nav-pills navtab-bg nav-justified" id="pills-tab" role="tablist">
-                      <li className="nav-item"> <a className="nav-link active" data-toggle="pill" href="#pills-activity" role="tab" aria-selected="true"> Activity </a> </li>
-                      <li className="nav-item"> <a className="nav-link" data-toggle="pill" href="#pills-pics" role="tab" aria-selected="false"> Pictures </a> </li>
-                      <li className="nav-item"> <a className="nav-link" data-toggle="pill" href="#pills-projects" role="tab" aria-selected="false"> Projects </a> </li>
-                      <li className="nav-item"> <a className="nav-link" data-toggle="pill" href="#pills-files" role="tab" aria-selected="false"> Files </a> </li>
+                    <ul className="nav nav-pills navtab-bg bg-white nav-justified shadow-sm" id="pills-tab" role="tablist">
+                      <li className="nav-item"> <a className="nav-link py-1 active" data-toggle="pill" href="#pills-activity" role="tab" aria-selected="true"> Activity </a> </li>
+                      <li className="nav-item"> <a className="nav-link py-1" data-toggle="pill" href="#pills-pics" role="tab" aria-selected="false"> Pictures </a> </li>
+                      <li className="nav-item"> <a className="nav-link py-1" data-toggle="pill" href="#pills-projects" role="tab" aria-selected="false"> Projects </a> </li>
+                      <li className="nav-item"> <a className="nav-link py-1" data-toggle="pill" href="#pills-files" role="tab" aria-selected="false"> Files </a> </li>
                     </ul>
                     <div className="tab-content" id="pills-tabContent">
                       <div className="tab-pane fade show active" id="pills-activity" role="tabpanel">
@@ -173,6 +175,7 @@ class Dashboard extends Component {
                 </div>
               </div>
             </div>
+            { this.state.loading && <div className="overlay center"><ClassicSpinner color="#5369f8" loading={true} /></div> }
           </div>
         </div>
       </div>

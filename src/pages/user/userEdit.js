@@ -4,6 +4,7 @@ import axios from 'axios';
 import con from '../../con/api';
 import fire from '../../con/fire';
 // import Avatar from '../../assets/images/users/avatar-1.jpg';
+import { ClassicSpinner } from "react-spinners-kit";
 import '../../assets/libs/smartwizard/smart_wizard_theme_arrows.min.scss';
 class Dashboard extends React.Component {
   _isMounted = false;
@@ -16,8 +17,7 @@ class Dashboard extends React.Component {
   componentDidMount() {
     this._isMounted = true;
     const userId = this.props.match.params.userId;
-    this._isMounted && axios.get(con.api+'/user/detail/'+userId, {headers:con.headers})
-    .then(res => {
+    this._isMounted && axios.get(con.api+'/user/detail/'+userId, {headers:con.headers}).then(res => {
       const images = res.data.images.map(i => {
         return {
           base : 'data:image/jpeg;base64,'+i.base
@@ -28,6 +28,7 @@ class Dashboard extends React.Component {
     require('../../assets/js/pages/form-wizard.init');
   }
   componentWillUnmount() {
+    this._isMounted = false;
     delete require.cache[require.resolve('../../assets/js/pages/form-wizard.init')];
   }
   browseImage(e){
@@ -52,6 +53,7 @@ class Dashboard extends React.Component {
     this.setState({ images:images, imagesChanged:true });
   }
   submit(){
+    this.setState({ loading: true });
     const form = selector => this.editForm.querySelector(selector);
     const q = {user_id:this.state.user.user_id};
     q['name'] = form('input[name=name]').value;
@@ -70,6 +72,7 @@ class Dashboard extends React.Component {
       axios.post(con.api+'/user/update', q, {headers:con.headers})
       .then(res => {
         fire.set(Date.now());
+        this.setState({ loading: false }, () => this.props.history.goBack());
       });
     }
   }
@@ -78,7 +81,7 @@ class Dashboard extends React.Component {
       <div className="content-page">
         <div className="content">
           <div className="container-fluid">
-            <div className="row page-title">
+            <div className="row page-title px-3 pb-0">
               <div className="col-auto">
                 <Link to="/user/list"> <h4 className="mb-1 mt-0 text-capitalize"> <i className="uil uil-arrow-left" /> {this.state.user.name} </h4> </Link>
               </div>
@@ -236,6 +239,7 @@ class Dashboard extends React.Component {
               </div>
             </div>
           </div>
+          { this.state.loading && <div className="overlay center"><ClassicSpinner color="#5369f8" loading={true} /></div> }
         </div>
       </div>
     );

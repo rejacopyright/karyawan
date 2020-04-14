@@ -1,0 +1,40 @@
+@import 'colors';
+.fc th.fc-widget-header{
+  background: transparent;
+  color: $primary;
+  font-weight: 600;
+  text-transform: capitalize;
+  line-height: 1.5 !important;
+  font-size: 10pt;
+  padding: 5px 0;
+}
+.fc-content{
+  color: $white;
+}
+.fc-day-grid-event{
+  border-radius: 2px !important;
+}
+.fc table{
+  font-size: 9pt !important;
+  font-weight: 600;
+}
+.fc th, .fc td{
+  border-color: $light;
+}
+.fc-button-primary{
+  background-color: $primary;
+  border-color: $primary;
+  border-radius: 50px;
+  &:disabled{
+    background-color: $primary;
+    border-color: $primary;
+    color: #fff;
+  }
+  &:hover, &:active, &:focus{
+    background-color: $primary !important;
+    border-color: $primary !important;
+    filter: brightness(1.2) !important;
+    outline: none !important;
+    box-shadow: unset !important;
+  }
+}

@@ -13,7 +13,7 @@ class Routes extends Component {
     feather.replace();
   }
   componentWillUnmount() {
-    delete require.cache[require.resolve('../assets/js/app')];
+    // delete require.cache[require.resolve('../assets/js/app')];
   }
   render() {
     return (

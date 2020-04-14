@@ -17,40 +17,51 @@
 .radius-50{ border-radius: 50px !important; }
 .radius-70{ border-radius: 70px !important; }
 .radius-100{ border-radius: 100px !important; }
-.hpx-100{
-  height: 100px !important;
-}
-.hpx-200{
-  height: 200px !important;
-}
-.same-25{
-  width: 25px !important;
-  height: 25px !important;
-}
-.same-50{
-  width: 50px !important;
-  height: 50px !important;
-}
-.same-100{
-  width: 100px !important;
-  height: 100px !important;
-}
-.same-200{
-  width: 200px !important;
-  height: 200px !important;
-}
-.r-0{
-  right: 0 !important;
-}
-.t-0{
-  top: 0 !important;
-}
+.h-unset{ height: unset !important; }
+.hpx-50{ height: 50px !important; }
+.hpx-75{ height: 75px !important; }
+.hpx-100{ height: 100px !important; }
+.hpx-200{ height: 200px !important; }
+.hpx-300{ height: 300px !important; }
+.wpx-50{ width: 50px !important; }
+.wpx-75{ width: 75px !important; }
+.wpx-100{ width: 100px !important; }
+.wpx-200{ width: 200px !important; }
+.wpx-300{ width: 300px !important; }
+// MIN
+.mh-50{ min-height: 50px !important; }
+.mh-75{ min-height: 75px !important; }
+.mh-100{ min-height: 100px !important; }
+.mh-200{ min-height: 200px !important; }
+.mh-300{ min-height: 300px !important; }
+.mw-50{ min-width: 50px !important; }
+.mw-75{ min-width: 75px !important; }
+.mw-100{ min-width: 100px !important; }
+.mw-200{ min-width: 200px !important; }
+.mw-300{ min-width: 300px !important; }
+// SQUARE
+.same-15{ width: 15px !important; height: 15px !important; }
+.same-20{ width: 20px !important; height: 20px !important; }
+.same-25{ width: 25px !important; height: 25px !important; }
+.same-50{ width: 50px !important; height: 50px !important; }
+.same-75{ width: 75px !important; height: 75px !important; }
+.same-100{ width: 100px !important; height: 100px !important; }
+.same-200{ width: 200px !important; height: 200px !important; }
+.r-unset{ right: unset !important; }
+.r-0{ right: 0 !important; }
+.t-unset{ top: unset !important; }
+.t-0{ top: 0 !important; }
+.l-unset{ left: unset !important; }
+.l-0{ left: 0 !important; }
+.b-unset{ bottom: unset !important; }
+.b-0{ bottom: 0 !important; }
+.lh-unset{line-height: unset !important;}
 .lh-1{line-height: 1 !important;}
 .lh-15{line-height: 1.5 !important;}
 .lh-2{line-height: 2 !important;}
-.strong{
-  font-weight: 700 !important;
-}
+.vh-90{height: 90vh !important;}
+.vh-80{height: 80vh !important;}
+.vh-75{height: 75vh !important;}
 .shadow-xs {
   -webkit-box-shadow: 0 0.05rem 0.05rem rgba(75, 75, 90, 0.1) !important;
   box-shadow: 0 0.05rem 0.05rem rgba(75, 75, 90, 0.1) !important;
@@ -78,4 +89,57 @@
 .shadow-none {
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
+}
+.strong{ font-weight: 700 !important; }
+.f-100{ font-weight: 100 !important; }
+.f-200{ font-weight: 200 !important; }
+.f-300{ font-weight: 300 !important; }
+.f-400{ font-weight: 400 !important; }
+.f-500{ font-weight: 500 !important; }
+.f-600{ font-weight: 600 !important; }
+.f-700{ font-weight: 700 !important; }
+.f-800{ font-weight: 800 !important; }
+.f-900{ font-weight: 900 !important; }
+.text-6{ font-size: 6pt !important; }
+.text-7{ font-size: 7pt !important; }
+.text-8{ font-size: 8pt !important; }
+.text-9{ font-size: 9pt !important; }
+.text-10{ font-size: 10pt !important; }
+.text-11{ font-size: 10pt !important; }
+.text-12{ font-size: 12pt !important; }
+.text-14{ font-size: 14pt !important; }
+.text-16{ font-size: 16pt !important; }
+.text-18{ font-size: 18pt !important; }
+.text-20{ font-size: 20pt !important; }
+.center {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-align: center !important;
+  -ms-flex-align: center !important;
+  align-items: center !important;
+  -webkit-box-pack: center !important;
+  -ms-flex-pack: center !important;
+  justify-content: center !important;
+}
+.center-left {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-align: center !important;
+  -ms-flex-align: center !important;
+  align-items: center !important;
+}
+.overlay{
+  position: absolute !important;
+  width: 100% !important;
+  height: 100vh !important;
+  background-color: rgba(255,255,255,.75) !important;
+  z-index: 9999 !important;
+  top: 0 !important;
+  left: 0 !important;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
 }
