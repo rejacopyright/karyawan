@@ -39,7 +39,7 @@ class Today extends React.Component {
         {
           this.state.loading ? [1,2,3].map(key => <Loading key={key} />) :
           this.state.user.map((r, key) => (
-            <List key={key} userID={1} userName={r.user.name} userDesc={''} time={moment(r.first_capture).format('HH:mm')} />
+            <List key={key} userID={1} userName={r.user.name} userDesc={''} time={moment(r.first_capture).format('HH:mm')} avatar={r.img} />
           ))
         }
       </Fragment>

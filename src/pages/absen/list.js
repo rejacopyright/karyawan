@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react'
 import { Link } from "react-router-dom"
+import con from "../../con/api"
 
 class List extends React.Component {
   render () {
@@ -9,9 +10,14 @@ class List extends React.Component {
           <li className="h-unset lh-unset radius-20">
             <div className="row m-0 p-2 align-items-center">
               <div className="col-atuo">
-                <span className="same-25 radius-100 center oh">
-                  <img src={require('../../assets/images/attached/img-1.jpg')} alt="" className="h-100"/>
-                </span>
+                <Link to={`/absen/detail/${this.props.userID}`} >
+                  {
+                    this.props.avatar ?
+                      <div className="same-25 radius-100 center oh border border-gray" style={{ backgroundImage: `url('${con.img}/user/thumb/${this.props.avatar}')`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }} />
+                    :
+                    <span className="same-25 radius-100 center oh border border-gray"> <img src={require('../../assets/images/attached/img-1.jpg')} alt="" className="h-100"/> </span>
+                  }
+                </Link>
               </div>
               <div className="col-auto">
                 <Link to={`/absen/detail/${this.props.userID}`} className="text-primary f-600">{this.props.userName}</Link>

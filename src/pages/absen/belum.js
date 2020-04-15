@@ -25,7 +25,7 @@ class Belum extends React.Component {
   componentDidMount() {
     this._isMounted = true;
     this._isMounted && axios.get(con.api+'/absen', {headers:con.headers}).then(res => {
-      this.setState({ user: res.data.absen, loading: false });
+      this.setState({ user: res.data.belum, loading: false });
     });
     document.title = 'Absen Hari Ini';
   }
@@ -39,7 +39,7 @@ class Belum extends React.Component {
         {
           this.state.loading ? [1,2,3].map(key => <Loading key={key} />) :
           this.state.user.map((r, key) => (
-            <List key={key} userID={1} userName={r.user.name} userDesc={''} time={moment(r.first_capture).format('HH:mm')} />
+            <List key={key} userID={1} userName={r.name} userDesc={''} time={moment(r.first_capture).format('HH:mm')} avatar={r.img} />
           ))
         }
       </Fragment>
