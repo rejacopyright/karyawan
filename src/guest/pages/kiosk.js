@@ -10,7 +10,7 @@ class KiosK extends React.Component {
   }
   componentDidMount() {
     // this.img.src = 'http://192.168.92.252/backend/public/img/capture1.jpg?'+Date.now();
-    this.fetchImage = setInterval( () => this.img.src = 'http://localhost/api-karyawan/public/img/capture1.jpg?'+Date.now(), 70 );
+    this.fetchImage = setInterval( () => this.img.src = con.img+'/capture1.jpg?'+Date.now(), 75 );
     // axios.get('http://192.168.92.252/backend/api/image_data').then(res => this.setState({ images:`data:image/jpeg;base64,${res.data}` }));
     this.fetchData = setInterval(() => {
       axios.get(con.api+'/user/absen', {headers:con.headers}).then(res => {
@@ -19,7 +19,7 @@ class KiosK extends React.Component {
           belum:res.data.belum
         });
       });
-    }, 5000);
+    }, 1000);
   }
   componentWillUnmount() {
     clearInterval(this.fetchImage);
