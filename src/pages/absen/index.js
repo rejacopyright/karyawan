@@ -25,10 +25,10 @@ class Absen extends React.Component {
                   <div className="inbox-leftbar card shadow-sm p-2">
                     <Link to="/absen" className="btn btn-soft-primary btn-block">{moment().format('DD-MM-YYYY')}</Link>
                     <div className="mail-list mt-2">
-                      <Link to="/absen/belum" className="list-group-item center-left border-0 text-danger f-400"> <i data-feather="user-x" className="icon-dual-danger icon-xs mr-2" /> Belum Absen <span className="ml-auto text-9">7</span></Link>
-                      <Link to="/absen" className="list-group-item center-left border-0 f-400"> <i data-feather="user-check" className="icon-dual icon-xs mr-2" /> Sudah Absen <span className="ml-auto text-9">22</span></Link>
-                      <Link to="/absen/ijin" className="list-group-item center-left border-0 f-400"> <i data-feather="users" className="icon-dual icon-xs mr-2" /> Ijin / Sakit <span className="ml-auto text-9">2</span></Link>
-                      <Link to="/absen/cuti" className="list-group-item center-left border-0 f-400"> <i data-feather="calendar" className="icon-dual icon-xs mr-2" /> Cuti <span className="ml-auto text-9">2</span></Link>
+                      <Link to="/absen/belum" className="list-group-item center-left border-0 f-400"> <i data-feather="user-x" className="icon-dual-danger icon-xs mr-2" /> Belum Absen <span className="ml-auto text-9">7</span></Link>
+                      <Link to="/absen" className="list-group-item center-left border-0 f-400"> <i data-feather="user-check" className="icon-dual-success icon-xs mr-2" /> Sudah Absen <span className="ml-auto text-9">22</span></Link>
+                      <Link to="/absen/ijin" className="list-group-item center-left border-0 f-400"> <i data-feather="users" className="icon-dual-warning icon-xs mr-2" /> Ijin / Sakit <span className="ml-auto text-9">2</span></Link>
+                      <Link to="/absen/cuti" className="list-group-item center-left border-0 f-400"> <i data-feather="calendar" className="icon-dual-info icon-xs mr-2" /> Cuti <span className="ml-auto text-9">2</span></Link>
                     </div>
                   </div>
                   <div className="inbox-rightbar">

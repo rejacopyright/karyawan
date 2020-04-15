@@ -10,12 +10,10 @@ class KiosK extends React.Component {
   }
   componentDidMount() {
     // this.img.src = 'http://192.168.92.252/backend/public/img/capture1.jpg?'+Date.now();
-    console.log(con);
     this.fetchImage = setInterval( () => this.img.src = 'http://localhost/api-karyawan/public/img/capture1.jpg?'+Date.now(), 70 );
     // axios.get('http://192.168.92.252/backend/api/image_data').then(res => this.setState({ images:`data:image/jpeg;base64,${res.data}` }));
     this.fetchData = setInterval(() => {
       axios.get(con.api+'/user/absen', {headers:con.headers}).then(res => {
-        console.log(res.data.absen);
         this.setState({
           absen:res.data.absen,
           belum:res.data.belum
@@ -77,7 +75,7 @@ class KiosK extends React.Component {
                         <img src={`${con.img}/user/thumb/${r.img}`} alt="" className="h-100"/>
                       </div>
                       <div className="media-body ml-2 oh">
-                        <h5 className="mt-0 mb-0 font-size-14"> <span className="float-right text-muted font-size-12">{moment(r.user.created_at).format('HH:mm')}</span> {r.user.name} <p className="badge badge-pill px-2 badge-soft-success d-table mt-1 mb-0">{r.user.username}</p> </h5>
+                        <h5 className="mt-0 mb-0 font-size-14"> <span className="float-right text-muted font-size-12">{moment(r.created_at).format('HH:mm')}</span> {r.user.name} <p className="badge badge-pill px-2 badge-soft-success d-table mt-1 mb-0">{r.user.username}</p> </h5>
                         <p className="mt-1 mb-0 text-muted text-truncate text-9"> Jabatan : <span className="text-primary f-600">{r.user.job}</span> </p>
                       </div>
                     </div>

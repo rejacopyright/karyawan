@@ -8621,7 +8621,9 @@ a.text-dark:hover, a.text-dark:focus {
   position: absolute;
   z-index: 1000; }
   .dropdown-menu.show {
-    top: 100% !important; }
+    top: calc(100% - 25px) !important;
+    right: 25px !important;
+  }
 
 .dropdown-menu-right {
   right: 0 !important;
