@@ -1,13 +1,24 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+import { connect } from 'react-redux'
+import axios from 'axios'
+import con from '../con/api'
 
 class Footer extends Component {
+  state = {
+    setting:{}
+  }
+  componentDidMount() {
+    axios.get(con.api+'/setting', {headers: con.headers}).then(res => {
+      this.setState({ setting: res.data });
+    });
+  }
   render() {
     return (
       <div className="navbar navbar-expand flex-column flex-md-row navbar-custom">
         <div className="container-fluid">
           <Link to="#" className="navbar-brand mr-0 mr-md-2 logo">
-            <span className="logo-lg"> <img src={require('../assets/images/logo.png')} alt="img" height={24} /> <span className="d-inline h5 ml-1 text-logo">Admin</span> </span>
+            <span className="logo-lg"> <img src={require('../assets/images/logo.png')} alt="img" height={24} /> <span className="d-inline h5 ml-1 text-logo">{this.props.setting.name || this.state.setting.name || '-'}</span> </span>
             <span className="logo-sm"> <img src={require('../assets/images/logo.png')} alt="img" height={24} /> </span>
           </Link>
           <ul className="navbar-nav bd-navbar-nav flex-row list-unstyled menu-left mb-0">
@@ -129,4 +140,5 @@ class Footer extends Component {
   }
 }
 
-export default Footer;
+
+export default connect(s => s)(Footer);

@@ -3,6 +3,7 @@ import cookie from 'js-cookie'
 import TimePicker from '../../components/timePicker'
 import axios from 'axios'
 import con from '../../con/api'
+import { connect } from 'react-redux'
 
 import {Input, Textarea} from '../../components/form'
 
@@ -57,7 +58,7 @@ class Setting extends React.Component {
                     <div className="card-body px-2 pb-1">
                       <div className="row">
                         <div className="col-12 mb-2">
-                          <Input name="name" title="Nama Instansi" placeholder="Nama Instansi" defaultValue={this.state.setting.name} />
+                          <Input name="name" title="Nama Instansi" placeholder="Nama Instansi" defaultValue={this.state.setting.name} onChange={i => this.props.handleSettingName(i)} />
                         </div>
                         <div className="col-12 mb-2">
                           <Textarea name="desc" title="Deskripsi" placeholder="Deskripsi instansi..." defaultValue={this.state.setting.desc} rows={5} />
@@ -95,4 +96,9 @@ class Setting extends React.Component {
   }
 }
 
-export default Setting;
+const mapDispatch = (dispatch) => {
+  return {
+    handleSettingName: (e) => dispatch({type:'SETTING_NAME', value:e.target.value})
+  }
+}
+export default connect(state => state, mapDispatch)(Setting);

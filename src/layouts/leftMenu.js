@@ -45,12 +45,6 @@ class Footer extends Component {
           <div id="sidebar-menu" className="slimscroll-menu">
             <ul className="metismenu" id="menu-bar">
               <li> <Link to="/"> <i data-feather="home"></i> <span className="badge badge-danger float-right">1</span> <span> Dashboard </span> </Link> </li>
-              <li>
-                <ul className="nav-second-level" aria-expanded="false">
-                  <li> <Link to="/user/list">User List</Link> </li>
-                  <li> <Link to="/user/add">Add User</Link> </li>
-                </ul>
-              </li>
               <li> <Link to="/user"> <i data-feather="user" /> <span> User </span> </Link> </li>
               <li> <Link to="/absen"> <i data-feather="calendar" /> <span> Absensi </span> </Link> </li>
               <li> <Link to="/devices"> <i data-feather="monitor" /> <span> Display </span> </Link> </li>

@@ -89,9 +89,10 @@ class Dashboard extends Component {
                           }
                           <h5 className="mt-2 mb-0 text-capitalize"> {r.name} </h5>
                           <h6 className="text-info text-9 pb-2 border-bottom mt-0">{r.username} </h6>
-                          <Link to={`/user/detail/${r.user_id}`} className="btn btn-soft-primary btn-sm same-25 p-0 oh radius-50 lh-2 mr-1"><i className="uil uil-eye text-primary" /></Link>
-                          <Link to={`/user/edit/${r.user_id}`} className="btn btn-soft-warning btn-sm same-25 p-0 oh radius-50 lh-2 mr-1"><i className="uil uil-edit-alt text-warning" /></Link>
-                          <Link to="#" className="btn btn-soft-danger btn-sm same-25 p-0 oh radius-50 lh-2" data-toggle="modal" data-target="#deleteModal" onClick={this.userDetail.bind(this, r.user_id)}><i className="uil uil-trash text-danger" /></Link>
+                          <Link to={`/user/detail/${r.user_id}`} className="btn same-25 p-0 oh radius-50 lh-2"><i className="uil uil-eye text-primary" /></Link>
+                          <Link to={`/user/edit/${r.user_id}`} className="btn same-25 p-0 oh radius-50 lh-2"><i className="uil uil-edit-alt text-warning" /></Link>
+                          <Link to={`/user/payroll/${r.user_id}`} className="btn same-25 p-0 oh radius-50 lh-2"><i className="uil uil-money-bill text-success" /></Link>
+                          <Link to="#" className="btn same-25 p-0 oh radius-50 lh-2" data-toggle="modal" data-target="#deleteModal" onClick={this.userDetail.bind(this, r.user_id)}><i className="uil uil-trash text-danger" /></Link>
                           <div className="mt-2 pt-1 border-top text-center">
                             <p className="text-dark mb-1 text-capitalize text-9"> {r.alamat} </p>
                             <p className="mb-2"> <label className="badge badge-soft-success border border-success radius-20 mw-50"> {r.tlp} </label> </p>

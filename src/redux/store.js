@@ -8,7 +8,8 @@ const init = {
   password:null,
   auth:false,
   user:[],
-  message:null
+  message:null,
+  setting:{}
 }
 // Reducer
 const reducer = (state = init, action) => {
@@ -31,6 +32,10 @@ const reducer = (state = init, action) => {
     Cookies.remove('user');
     Cookies.remove('auth');
     return {state:init};
+  }
+  if (action.type === 'SETTING_NAME') {
+    // console.log(action);
+    return {...state, setting: {...state.setting, name: action.value}}
   }
   return state;
 }
