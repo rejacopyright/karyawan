@@ -104,7 +104,7 @@ class Dashboard extends Component {
                 ))
               }
             </div>
-            <div className="position-absolute b-0 r-0 p-3">
+            <div className="position-fixed b-0 r-0 p-3">
               <Link to="/user/add" className="btn btn-primary same-50 radius-50 center"><i className="uil uil-plus text-14" /></Link>
             </div>
             <Modal id="deleteModal" title="Hapus User" content={<ModalDelete />} />

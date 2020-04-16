@@ -12,7 +12,8 @@ class Dashboard extends React.Component {
   state = {
     images:[],
     snackOpen: false,
-    msg: ''
+    msg: '',
+    // loading: true
   }
   componentDidMount() {
     this._isMounted = true;

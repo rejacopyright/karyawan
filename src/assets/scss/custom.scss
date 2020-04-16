@@ -131,7 +131,7 @@
   align-items: center !important;
 }
 .overlay{
-  position: absolute !important;
+  position: fixed !important;
   width: 100% !important;
   height: 100vh !important;
   background-color: rgba(255,255,255,.75) !important;
