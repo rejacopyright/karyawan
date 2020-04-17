@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import cookie from 'js-cookie'
 import TimePicker from '../../components/timePicker'
 import axios from 'axios'
@@ -6,7 +7,7 @@ import con from '../../con/api'
 import { connect } from 'react-redux'
 
 import {Input, Textarea} from '../../components/form'
-
+import feather from 'feather-icons'
 import Notif from '../../components/notif'
 import { ClassicSpinner } from "react-spinners-kit"
 // import moment from 'moment';
@@ -23,6 +24,7 @@ class Setting extends React.Component {
     snackMsg: '',
   }
   componentDidMount() {
+    feather.replace();
     this._isMounted = true;
     this._isMounted && axios.get(con.api+'/setting', {headers:con.headers}).then(res => {
       this.setState({ setting: res.data, loading: false });
@@ -82,6 +84,24 @@ class Setting extends React.Component {
                         <small className="d-block"> Jam Keluar </small>
                         <TimePicker name="out" defaultValue={this.state.setting.out} onChange={this.changeTime.bind(this)} className={`btn-light btn-sm px-3 text-danger text-10 f-700`} />
                       </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-8">
+                <div className="row">
+                  <div className="col-md-4">
+                    <div className="card shadow-sm border-top border-gray">
+                      <Link to="payroll" className="card-body">
+                        <div className="row align-items-center">
+                          <div className="col-auto pr-0">
+                            <i className="uil uil-money-bill lh-1 text-16" />
+                          </div>
+                          <div className="col">
+                            <h6 className="m-0"> Payroll </h6>
+                          </div>
+                        </div>
+                      </Link>
                     </div>
                   </div>
                 </div>

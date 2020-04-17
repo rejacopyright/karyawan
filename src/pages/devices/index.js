@@ -41,7 +41,7 @@ class Setting extends React.Component {
     this._isMounted = false;
   }
   slideToggle(){
-    document.body.classList.toggle('right-bar-enabled')
+    document.body.classList.toggle('right-bar-enabled');
   }
   zoom(){
     console.log('zoom Modal');

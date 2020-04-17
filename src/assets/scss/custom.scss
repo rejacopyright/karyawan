@@ -143,3 +143,8 @@
   -o-transition: all .3s ease;
   transition: all .3s ease;
 }
+.bg-img{
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: center !important;
+}

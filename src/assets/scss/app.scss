@@ -882,8 +882,8 @@ body[data-layout="topnav"] .profile-dropdown {
           box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.06), 0 1px 0 0 rgba(0, 0, 0, 0.02);
   display: block;
   position: fixed;
-  -webkit-transition: all 200ms ease-out;
-  transition: all 200ms ease-out;
+  -webkit-transition: all 100ms ease-out;
+  transition: all 100ms ease-out;
   width: 260px;
   z-index: 9999;
   float: right !important;
@@ -905,7 +905,7 @@ body[data-layout="topnav"] .profile-dropdown {
 
 .rightbar-overlay {
   background-color: rgba(52, 58, 64, 0.55);
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   top: 0;
@@ -2472,12 +2472,12 @@ div.dt-button-info {
   background-color: #fff; }
   .email-container .inbox-leftbar {
     padding: 1.25rem;
-    width: 250px;
+    width: $emailSize;
     float: left;
     padding-bottom: 184px;
     margin-bottom: -184px; }
   .email-container .inbox-rightbar {
-    margin-left: 250px;
+    margin-left: $emailSize;
     border-left: 5px solid #f3f4f7;
     padding: 0 0 1.5rem 25px; }
 

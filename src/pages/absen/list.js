@@ -13,7 +13,7 @@ class List extends React.Component {
                 <Link to={`/absen/detail/${this.props.userID}`} >
                   {
                     this.props.avatar ?
-                      <div className="same-25 radius-100 center oh border border-gray" style={{ backgroundImage: `url('${con.img}/user/thumb/${this.props.avatar}')`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }} />
+                      <div className="same-25 radius-100 center oh border border-gray bg-img" style={{ backgroundImage: `url('${con.img}/user/thumb/${this.props.avatar}')` }} />
                     :
                     <span className="same-25 radius-100 center oh border border-gray"> <img src={require('../../assets/images/attached/img-1.jpg')} alt="" className="h-100"/> </span>
                   }

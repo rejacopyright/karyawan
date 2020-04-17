@@ -20,11 +20,11 @@ class Dashboard extends Component {
     this._isMounted = true;
     document.title = 'List Karyawan';
     this._isMounted && axios.get(con.api+'/user', {headers:con.headers, params:{page:this.state.users_page, noBase:true}}).then(res => {
-      this.setState({ users:res.data, loading:false });
+      this.setState({ users:res.data.user, loading:false });
     });
     fire.on('value', () => {
       this._isMounted && axios.get(con.api+'/user', {headers:con.headers, params:{page:this.state.users_page, noBase:true}}).then(res => {
-        this.setState({ users:res.data, loading:false });
+        this.setState({ users:res.data.user, loading:false });
       });
     });
   }
@@ -36,7 +36,7 @@ class Dashboard extends Component {
     const q = {user_id:this.state.users_self.user_id}
     axios.post(con.api+'/user/delete', q, {headers:con.headers})
     .then(res => {
-      this.setState({ users:res.data });
+      this.setState({ users:res.data.user });
     });
   }
   render() {
@@ -83,7 +83,7 @@ class Dashboard extends Component {
                         <div className="text-center mt-3">
                           {
                             r.img.length ?
-                              <div className="same-100 mx-auto radius-100 oh border border-2" style={{ backgroundImage: `url('${con.img}/user/thumb/${r.img[0].name}')`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }}> </div>
+                              <div className="same-100 mx-auto radius-100 oh border border-2 bg-img" style={{ backgroundImage: `url('${con.img}/user/thumb/${r.img[0].name}')` }}> </div>
                             :
                             <img src={Avatar} alt="img" className="avatar-xl rounded-circle" />
                           }
@@ -94,7 +94,7 @@ class Dashboard extends Component {
                           <Link to={`/user/payroll/${r.user_id}`} className="btn same-25 p-0 oh radius-50 lh-2"><i className="uil uil-money-bill text-success" /></Link>
                           <Link to="#" className="btn same-25 p-0 oh radius-50 lh-2" data-toggle="modal" data-target="#deleteModal" onClick={this.userDetail.bind(this, r.user_id)}><i className="uil uil-trash text-danger" /></Link>
                           <div className="mt-2 pt-1 border-top text-center">
-                            <p className="text-dark mb-1 text-capitalize text-9"> {r.alamat} </p>
+                            <p className="text-dark mb-1 text-capitalize text-9 text-truncate"> {r.alamat} </p>
                             <p className="mb-2"> <label className="badge badge-soft-success border border-success radius-20 mw-50"> {r.tlp} </label> </p>
                           </div>
                         </div>

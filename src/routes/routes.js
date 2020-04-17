@@ -16,6 +16,7 @@ const MyAccount = React.lazy(() => import('../pages/account.js'));
 const Absen = React.lazy(() => import('../pages/absen/index'));
 // Settings
 const Setting = React.lazy(() => import('../pages/setting/index'));
+const Payroll = React.lazy(() => import('../pages/setting/payroll'));
 // Devices
 const Devices = React.lazy(() => import('../pages/devices/index'));
 
@@ -49,8 +50,9 @@ class Routes extends Component {
           <Route exact path="/user/edit/:userId" component={UserEdit} />
           <Route path="/absen" component={Absen} />
           <Route exact path="/account" component={MyAccount} />
-          <Route exact path="/setting" component={Setting} />
           <Route exact path="/devices" component={Devices} />
+          <Route exact path="/setting" component={Setting} />
+          <Route path="/payroll" component={Payroll} />
           {/* HANDLE PAGE */}
           <Route exact path="*" component={Dashboard} />
         </Switch>

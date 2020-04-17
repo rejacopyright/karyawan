@@ -17,24 +17,24 @@ class Footer extends Component {
               <span data-feather="chevron-down" className="text-dark" />
             </Link>
             <div className="dropdown-menu profile-dropdown">
-              <Link to="/account" className="dropdown-item notify-item">
+              <Link to="/account" className="dropdown-item notify-item px-2 text-9">
                 <i data-feather="user" className="icon-dual icon-xs mr-2"></i>
                 <span>My Account</span>
               </Link>
-              <Link to="#" className="dropdown-item notify-item">
+              <Link to="#" className="dropdown-item notify-item px-2 text-9">
                 <i data-feather="settings" className="icon-dual icon-xs mr-2"></i>
                 <span>Settings</span>
               </Link>
-              <Link to="#" className="dropdown-item notify-item">
+              <Link to="#" className="dropdown-item notify-item px-2 text-9">
                 <i data-feather="help-circle" className="icon-dual icon-xs mr-2"></i>
                 <span>Support</span>
               </Link>
-              <Link to="#" className="dropdown-item notify-item">
+              <Link to="#" className="dropdown-item notify-item px-2 text-9">
                 <i data-feather="lock" className="icon-dual icon-xs mr-2"></i>
                 <span>Lock Screen</span>
               </Link>
               <div className="dropdown-divider"></div>
-              <Link to="#" className="dropdown-item notify-item" onClick={() => this.props.handleLogout()}>
+              <Link to="#" className="dropdown-item notify-item px-2 text-9" onClick={() => this.props.handleLogout()}>
                 <i data-feather="log-out" className="icon-dual icon-xs mr-2"></i>
                 <span>Logout</span>
               </Link>

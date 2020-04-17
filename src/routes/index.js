@@ -3,7 +3,6 @@ import {BrowserRouter} from "react-router-dom";
 import AllRoutes from './routes';
 import Topbar from '../layouts/topbar';
 import LeftMenu from '../layouts/leftMenu';
-import RightMenu from '../layouts/rightMenu';
 // INIT JS
 import feather from 'feather-icons';
 
@@ -13,7 +12,7 @@ class Routes extends Component {
     feather.replace();
   }
   componentWillUnmount() {
-    // delete require.cache[require.resolve('../assets/js/app')];
+    delete require.cache[require.resolve('../assets/js/app')];
   }
   render() {
     return (
@@ -23,7 +22,6 @@ class Routes extends Component {
           <LeftMenu />
           <AllRoutes />
         </div>
-        <RightMenu />
       </BrowserRouter>
     );
   }

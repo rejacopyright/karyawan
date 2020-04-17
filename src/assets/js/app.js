@@ -149,7 +149,7 @@ $(function(){
       }
     }
     // right side-bar toggle
-    $('.right-bar-toggle').on('click', function (e) {
+    $(document).on('click', '.right-bar-toggle', function (e) {
       $('body').toggleClass('right-bar-enabled');
     });
     $(document).on('click', 'body', function (e) {
