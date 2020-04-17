@@ -38,7 +38,7 @@ class KiosK extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className="col-7">
+              <div className="col-7 mt-3">
                 <div className="row">
                   {
                     this.state.absen.length && this.state.absen.slice(0,6).map((r, key) => (
