@@ -5,6 +5,7 @@ import feather from 'feather-icons';
 import TopBar from './topbar';
 // ROUTES
 const KiosK = React.lazy(() => import('./pages/kiosk'));
+const KiosKv2 = React.lazy(() => import('./pages/kiosk_new_backup'));
 const Display = React.lazy(() => import('./pages/display'));
 
 class Routes extends Component {
@@ -26,6 +27,7 @@ class Routes extends Component {
             <Switch>
               {/* ROUTER */}
               <Route exact path="/kiosk" component={KiosK} />
+              <Route exact path="/kiosk/v2" component={KiosKv2} />
               <Route exact path="/display" component={Display} />
               <Route exact path="/guest"> <h1>TEST GUEST ROUTES</h1> </Route>
               {/* HANDLE PAGE */}

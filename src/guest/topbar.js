@@ -1,19 +1,23 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+import Logo from '../assets/images/logo-letter.png'
 
 class Footer extends Component {
   render() {
     return (
-      <div className="navbar navbar-expand flex-column flex-md-row navbar-custom">
+      <div className="navbar navbar-expand flex-column flex-md-row navbar-custom px-4">
         <div className="container-fluid">
           <Link to="#" className="navbar-brand mr-0 mr-md-2 logo">
-            <span className="logo-lg"> <img src={require('../assets/images/logo.png')} alt="img" height={24} /> <span className="d-inline h5 ml-1 text-logo">Admin</span> </span>
-            <span className="logo-sm"> <img src={require('../assets/images/logo.png')} alt="img" height={24} /> </span>
+            <span className="logo-lg">
+              <img src={Logo} alt="img" height={24} />
+              {/* <span className="d-inline h5 ml-1 text-logo">Admin</span> */}
+            </span>
+            <span className="logo-sm"> <img src={Logo} alt="img" height={24} /> </span>
           </Link>
           <ul className="navbar-nav bd-navbar-nav flex-row list-unstyled menu-left mb-0">
             <li>
               <button className="button-menu-mobile open-left disable-btn">
-                <img src={require('../assets/images/logo.png')} alt="img" height={24} />
+                <img src={Logo} alt="img" height={24} />
               </button>
             </li>
           </ul>
