@@ -41,14 +41,14 @@ class KiosK extends React.Component {
               <div className="col-7">
                 <div className="row">
                   {
-                    this.state.absen.length && this.state.absen.map((r, key) => (
-                      <div className="col-md-6 px-5 hpx-150" key={key} style={{ marginTop: '150px' }}>
+                    this.state.absen.length && this.state.absen.slice(0,6).map((r, key) => (
+                      <div className="col-md-4 px-4 hpx-150" key={key} style={{ marginTop: '110px' }}>
                         <div className="card radius-0">
-                          <div className="position-absolute w-100 center" style={{ top: '-90%' }}>
+                          <div className="position-absolute w-100 center" style={{ top: '-100%' }}>
                             <div className="same-150 mx-auto radius-100 oh bg-img" style={{ backgroundImage: `url('${con.img}/user/thumb/${r.img}')` }}> </div>
                           </div>
-                          <div className="card-body radius-0 text-center py-5">
-                            <div className="d-block text-14"> {r.user.name} </div>
+                          <div className="card-body radius-0 text-center" style={{ paddingTop: '40px' }}>
+                            <div className="d-block text-22"> {r.user.name} </div>
                             <div className="d-block text-9"> {moment(r.created_at).format('HH:mm')} </div>
                           </div>
                         </div>
