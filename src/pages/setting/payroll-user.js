@@ -6,7 +6,8 @@ import Avatar from '../../assets/images/users/avatar.png'
 import RightBar from '../../components/rightBar';
 
 // Form
-import {Input} from '../../components/form'
+import { ClassicSpinner } from "react-spinners-kit";
+import Desimal from '../../components/desimal'
 
 const Menu = () => (
     <Fragment>
@@ -54,8 +55,9 @@ class PayrollUser extends Component {
     users:[],
     users_page:1,
     users_search:'',
-    users_self:{},
-    loading:true
+    user_self:{},
+    loading:true,
+    loadingUpdate:false
   }
   componentDidMount(){
     this._isMounted = true;
@@ -66,17 +68,45 @@ class PayrollUser extends Component {
   }
   slideToggle(userId){
     const user = this.state.users.find(i => i.user_id === userId);
-    this.setState({ users_self:user });
+    this.setState({ user_self:user });
+  }
+  payrollUpdate(e){
+    e.preventDefault();
+    this.setState({loadingUpdate: true});
+    const q = {user_id : this.state.user_self.user_id};
+    const form = this.payrollUpdateForm;
+    q['u_pokok'] = parseInt(form.querySelector('input[name=u_pokok]').value.split('.').join(''));
+    q['u_transport'] = parseInt(form.querySelector('input[name=u_transport]').value.split('.').join(''));
+    q['u_makan'] = parseInt(form.querySelector('input[name=u_makan]').value.split('.').join(''));
+    q['u_anis'] = parseInt(form.querySelector('input[name=u_anis]').value.split('.').join(''));
+    axios.post(con.api+'/user/update', q, {headers:con.headers}).then(res => {
+      this.setState({ user_self: res.data.update, users: res.data.user, loadingUpdate: false });
+    });
   }
   render(){
     return(
       <Fragment>
-        <RightBar title={this.state.users_self.name}>
-          <Input name="u_pokok" title="Gaji Pokok" placeholder="Gaji Pokok" defaultValue={this.state.users_self.u_pokok} rowClass="mb-3" />
-          <Input name="u_transport" title="Uang Transportasi" placeholder="Uang Transportasi" defaultValue={this.state.users_self.u_transport} rowClass="mb-3" />
-          <Input name="u_makan" title="Uang Makan" placeholder="Uang Makan" defaultValue={this.state.users_self.u_makan} rowClass="mb-3" />
-          <Input name="u_anis" title="Tunjangan Anak Istri" placeholder="Tunjangan Anak Istri" defaultValue={this.state.users_self.u_anis} rowClass="mb-3" />
-          {this.state.users_self.name}
+        <RightBar title={this.state.user_self.name}>
+          <form ref={i => this.payrollUpdateForm = i} onSubmit={this.payrollUpdate.bind(this)}>
+            {
+              this.state.user_self.img &&
+              <div className="d-block text-center border-top border-bottom py-2 mb-3">
+                <div className="same-75 radius-100 mx-auto center oh border border-1 border-gray bg-img mb-2" style={{ backgroundImage: `url('${con.img}/user/thumb/${this.state.user_self.img[0].name}')` }} />
+                <span className="f-600">{this.state.user_self.name} </span>
+                <span className="f-200 text-muted">| {this.state.user_self.username}</span>
+              </div>
+            }
+            <Desimal name="u_pokok" title="Gaji Pokok" placeholder="Gaji Pokok" value={Object.values(this.state.user_self).length && this.state.user_self.u_pokok} rowClass="mb-2" icon="Rp." />
+            <Desimal name="u_transport" title="Uang Transportasi" placeholder="Uang Transportasi" value={Object.values(this.state.user_self).length && this.state.user_self.u_transport} rowClass="mb-2" icon="Rp." />
+            <Desimal name="u_makan" title="Uang Makan" placeholder="Uang Makan" value={Object.values(this.state.user_self).length && this.state.user_self.u_makan} rowClass="mb-2" icon="Rp." />
+            <Desimal name="u_anis" title="Tunjangan Anak Istri" placeholder="Tunjangan Anak Istri" value={Object.values(this.state.user_self).length && this.state.user_self.u_anis} rowClass="mb-2" icon="Rp." />
+            <div className="row position-absolute w-100 b-0 py-2">
+              <div className="col text-center">
+                <button type="submit" className="btn btn-block btn-sm radius-20 btn-soft-success">Update Perubahan</button>
+              </div>
+            </div>
+          </form>
+          { this.state.loadingUpdate && <div className="overlay-absolute center"><ClassicSpinner color="#5369f8" loading={true} /></div> }
         </RightBar>
         <Menu />
         <div className="row mt-2">
@@ -99,8 +129,8 @@ class PayrollUser extends Component {
                         <div className="text-primary text-nowrap f-600">{r.name}</div>
                       </div>
                       <div className="col text-truncate">
-                        <div className="subject text-truncate f-200">
-                          Description...
+                        <div className="subject text-truncate text-9 f-600">
+                          Rp. {(parseInt(r.u_pokok) + parseInt(r.u_transport) + parseInt(r.u_makan) + parseInt(r.u_anis)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}
                         </div>
                       </div>
                       <div className="col-auto text-right text-success text-8">01:30 AM</div>

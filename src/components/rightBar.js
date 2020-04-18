@@ -6,10 +6,10 @@ class Footer extends Component {
       <Fragment>
         <div className="right-bar">
           <div className="rightbar-title p-3">
-            <Link to="#" className="right-bar-toggle float-right text-muted"> <i data-feather="x" /> </Link>
-            <h6 className="m-0 titlebar text-primary">{this.props.title}</h6>
+            <Link to="#" className="right-bar-toggle float-right text-gray"> <i className="uil uil-times text-14 lh-1" /> </Link>
+            <h6 className="m-0 text-primary">{this.props.title}</h6>
           </div>
-          <div className="slimscroll-menu contentbar p-3">
+          <div className="slimscroll-menu px-3">
             {this.props.children}
           </div>
         </div>

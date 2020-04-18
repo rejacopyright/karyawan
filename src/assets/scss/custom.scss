@@ -146,6 +146,19 @@
   -o-transition: all .3s ease;
   transition: all .3s ease;
 }
+.overlay-absolute{
+  position: absolute !important;
+  width: 100% !important;
+  height: 100vh !important;
+  background-color: rgba(255,255,255,.75) !important;
+  z-index: 9999 !important;
+  top: 0 !important;
+  left: 0 !important;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
+}
 .bg-img{
   background-repeat: no-repeat !important;
   background-size: cover !important;

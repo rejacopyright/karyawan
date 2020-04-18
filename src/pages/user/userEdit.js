@@ -69,8 +69,7 @@ class Dashboard extends React.Component {
     if (this.state.imagesChanged) { q['img'] = this.state.images.map(i => i.base); }
     this.setState({ imagesChanged:false });
     if (q.name && q.email && q.username) {
-      axios.post(con.api+'/user/update', q, {headers:con.headers})
-      .then(res => {
+      axios.post(con.api+'/user/update', q, {headers:con.headers}).then(res => {
         fire.set(Date.now());
         this.setState({ loading: false }, () => this.props.history.goBack());
       });
