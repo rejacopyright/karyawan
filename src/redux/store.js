@@ -9,7 +9,8 @@ const init = {
   auth:false,
   user:[],
   message:null,
-  setting:{}
+  setting:{},
+  search:''
 }
 // Reducer
 const reducer = (state = init, action) => {
@@ -34,8 +35,10 @@ const reducer = (state = init, action) => {
     return {state:init};
   }
   if (action.type === 'SETTING_NAME') {
-    // console.log(action);
     return {...state, setting: {...state.setting, name: action.value}}
+  }
+  if (action.type === 'SEARCH') {
+    return {...state, search: action.value}
   }
   return state;
 }

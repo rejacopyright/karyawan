@@ -26,7 +26,7 @@ const Ads = () => (
 )
 const UserCard = () => (
   <div className="row">
-    <div className="col-auto mx-auto">
+    <div className="col">
       <div className="card mb-2 shadow-sm">
         <div className="card-body p-0">
           <div className="media py-2 px-3">
@@ -41,7 +41,7 @@ const UserCard = () => (
         </div>
       </div>
     </div>
-    <div className="col-auto mx-auto">
+    <div className="col">
       <div className="card mb-2 shadow-sm">
         <div className="card-body p-0">
           <div className="media py-2 px-3">
@@ -56,7 +56,7 @@ const UserCard = () => (
         </div>
       </div>
     </div>
-    <div className="col-auto mx-auto">
+    <div className="col">
       <div className="card mb-2 shadow-sm">
         <div className="card-body p-0">
           <div className="media py-2 px-3">
@@ -65,21 +65,6 @@ const UserCard = () => (
               <div className="d-flex align-items-center mt-2">
                 <h4 className="my-0 text-warning">1</h4>
                 <div className="icon-dual-warning ml-auto bg-soft-warning p-1 radius-20" data-feather="users"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div className="col-auto mx-auto">
-      <div className="card mb-2 shadow-sm">
-        <div className="card-body p-0">
-          <div className="media py-2 px-3">
-            <div className="media-body lh-1 text-7 text-nowrap">
-              <div className="text-secondary text-uppercase f-700 border-bottom border-gray pb-1">- Karyawan Pulang</div>
-              <div className="d-flex align-items-center mt-2">
-                <h4 className="my-0 text-info">2</h4>
-                <div className="icon-dual-info ml-auto bg-soft-info p-1 radius-20" data-feather="user-check"></div>
               </div>
             </div>
           </div>
@@ -105,7 +90,7 @@ const Device = (props) => (
       </div>
     </div>
     {
-      [2,3,4,5].map(key => (
+      [2,3,4].map(key => (
         <div className="col-auto px-2" key={key}>
           <div className="card shadow-sm pointer border-top border-gray mb-0">
             <div className="card-body px-2 py-1">

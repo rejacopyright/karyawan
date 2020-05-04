@@ -9,7 +9,7 @@ export default class Modal extends React.Component {
               !(this.props.headerDisabled) &&
               <div className="modal-header py-2 bg-light">
                 <h6 className="modal-title badge badge-soft-primary">{this.props.title}</h6>
-                <button type="button" className="close py-3 px-2" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true"><i className="uil uil-times-circle text-danger" /></span> </button>
+                <button type="button" className="close py-3 px-2" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true"><i className="uil uil-times text-muted" /></span> </button>
               </div>
             }
             <div className={`modal-body ${this.props.contentClass}`}>

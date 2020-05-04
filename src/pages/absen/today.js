@@ -35,11 +35,11 @@ class Today extends React.Component {
   render () {
     return (
       <Fragment>
-        <h5 className="mt-3 mb-2 text-10 text-success">List karyawan yang sudah absen hari ini</h5>
+        <h5 className="pb-2 mb-3 border-bottom border-2">List karyawan yang sudah absen hari ini</h5>
         {
           this.state.loading ? [1,2,3].map(key => <Loading key={key} />) :
           this.state.user.map((r, key) => (
-            <List key={key} userID={1} userName={r.user.name} userDesc={''} time={moment(r.first_capture).format('HH:mm')} avatar={r.img} />
+            <List key={key} userID={1} name={r.user.name} userName={r.user.username} userDesc={''} time={moment(r.first_capture).format('HH:mm')} avatar={r.img} />
           ))
         }
       </Fragment>

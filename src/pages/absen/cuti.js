@@ -8,7 +8,7 @@ class Belum extends React.Component {
   render () {
     return (
       <Fragment>
-        <h5 className="mt-3 mb-2 text-10 text-muted">Daftar Karyawan Cuti Hari Ini</h5>
+        <h5 className="pb-2 mb-3 border-bottom border-2">List karyawan yang cuti absen hari ini</h5>
         <ul className="message-list">
           <li className="h-unset lh-unset radius-20">
             <div className="row m-0 p-2 align-items-center">

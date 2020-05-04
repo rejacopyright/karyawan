@@ -8,8 +8,10 @@ class Time extends React.Component {
     selectedDate: new Date(Math.round(new Date().getTime() / (1000*60*5)) * (1000*60*5)),
     isOpen:false
   }
-  UNSAFE_componentWillReceiveProps(props) {
-    this.setState({ selectedDate: props.defaultValue });
+  static getDerivedStateFromProps(props, state) {
+    return {
+      selectedDate: props.defaultValue
+    }
   }
   handleDateChange(e){
     this.setState({ selectedDate:e.toDate() }, () => this.props.onChange(e, this.props.name || false) );

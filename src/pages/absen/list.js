@@ -7,8 +7,8 @@ class List extends React.Component {
     return (
       <Fragment>
         <ul className="message-list mb-1">
-          <li className="h-unset lh-unset radius-20">
-            <div className="row m-0 p-2 align-items-center">
+          <li className="h-unset lh-unset radius-5">
+            <div className="row m-0 p-2 align-items-center right-bar-toggle pointer">
               <div className="col-atuo">
                 <Link to={`/absen/detail/${this.props.userID}`} >
                   {
@@ -19,18 +19,17 @@ class List extends React.Component {
                   }
                 </Link>
               </div>
-              <div className="col-auto">
-                <Link to={`/absen/detail/${this.props.userID}`} className="text-primary f-600">{this.props.userName}</Link>
+              <div className="col-md-2 col-auto">
+                <Link to={`/absen/detail/${this.props.userID}`} className="text-dark text-9 text-nowrap f-600 lh-1 d-block m-0">{this.props.name}</Link>
+                <Link to={`/absen/detail/${this.props.userID}`} className="text-muted text-8 text-nowrap f-600 lh-1 d-block m-0">{this.props.userName}</Link>
               </div>
               <div className="col text-truncate">
-                <Link to={`/absen/detail/${this.props.userID}`} className="subject f-200">
-                  {this.props.userDesc}
-                </Link>
+                <Link to={`/absen/detail/${this.props.userID}`} className="subject f-600 text-9"> {this.props.userDesc} </Link>
               </div>
-              <div className="col-auto text-right text-success">{this.props.time}</div>
+              <div className="col text-right text-8 text-success">{this.props.time}</div>
               <div className="col-auto pr-0">
                 <div data-toggle="tooltip" data-placement="top" title="Folder">
-                  <span className="btn btn-xs btn-light radius-20 pointer same-25 p-0 center dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <i className="uil uil-angle-down"></i> </span>
+                  <span className="btn btn-xs text-dark radius-20 pointer same-25 p-0 center dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <i className="uil uil-angle-right"></i> </span>
                   <div className="dropdown-menu l-unset r-0">
                     <span className="dropdown-header">Move to</span>
                     <a className="dropdown-item text-9" href="##">View</a>

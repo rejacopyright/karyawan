@@ -1,7 +1,7 @@
 import React, {Component, Suspense} from 'react'
 import { Switch, Route } from "react-router-dom";
 import { withRouter } from 'react-router';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import cookie from 'js-cookie';
 // Dashboard
 const Dashboard = React.lazy(() => import('../pages/dashboard/index'));
@@ -16,9 +16,13 @@ const MyAccount = React.lazy(() => import('../pages/account.js'));
 const Absen = React.lazy(() => import('../pages/absen/index'));
 // Settings
 const Setting = React.lazy(() => import('../pages/setting/index'));
-const Payroll = React.lazy(() => import('../pages/setting/payroll'));
+const Jabatan = React.lazy(() => import('../pages/setting/jabatan/index'));
+const Payroll = React.lazy(() => import('../pages/setting/payroll/index'));
+const AdminRole = React.lazy(() => import('../pages/setting/role/index'));
 // Devices
 const Devices = React.lazy(() => import('../pages/devices/index'));
+// Pages
+const PageNotFound = React.lazy(() => import('../layouts/pageNotFound'));
 
 class Routes extends Component {
   componentDidMount() {
@@ -53,8 +57,10 @@ class Routes extends Component {
           <Route exact path="/devices" component={Devices} />
           <Route exact path="/setting" component={Setting} />
           <Route path="/payroll" component={Payroll} />
+          <Route path="/jabatan" component={Jabatan} />
+          <Route path="/role" component={AdminRole} />
           {/* HANDLE PAGE */}
-          <Route exact path="*" component={Dashboard} />
+          <Route exact path="*" component={PageNotFound} />
         </Switch>
       </Suspense>
     );

@@ -1,38 +1,26 @@
 import React, {Component, Fragment} from 'react'
 import axios from 'axios'
-import con from '../../con/api'
+import con from '../../../con/api'
 import Skeleton from 'react-skeleton-loader'
-import Avatar from '../../assets/images/users/avatar.png'
-import RightBar from '../../components/rightBar';
+import Avatar from '../../../assets/images/users/avatar.png'
+import RightBar from '../../../components/rightBar';
 
 // Form
 import { ClassicSpinner } from "react-spinners-kit";
-import Desimal from '../../components/desimal'
+import { Desimal } from '../../../components/form'
 
 const Menu = () => (
     <Fragment>
-      <div className="btn-group mb-2">
-        <button type="button" className="btn btn-light" data-toggle="tooltip" data-placement="top" title="Mark as spam"><i className="uil uil-exclamation-octagon"></i></button>
-        <button type="button" className="btn btn-light" data-toggle="tooltip" data-placement="top" title="Delete"><i className="uil uil-trash-alt"></i></button>
-      </div>
-      <div className="btn-group mb-2" data-toggle="tooltip" data-placement="top" title="Folder">
-        <button type="button" className="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <i className="uil uil-folder"></i> <i className="uil uil-angle-down"></i> </button>
+      <div className="btn-group my-2" style={{marginLeft: '-.6rem'}}>
+        <button type="button" className="btn btn-sm text-dark" data-toggle="tooltip" data-placement="top" title="Mark as spam"><i className="uil uil-exclamation-octagon"></i></button>
+        <button type="button" className="btn btn-sm text-dark" data-toggle="tooltip" data-placement="top" title="Delete"><i className="uil uil-trash-alt"></i></button>
+        <button type="button" className="btn btn-sm text-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <i className="uil uil-folder"></i> <i className="uil uil-angle-down"></i> </button>
         <div className="dropdown-menu">
           <span className="dropdown-header">Move to</span>
           <a className="dropdown-item" href="##">Social</a>
           <a className="dropdown-item" href="##">Promotions</a>
           <a className="dropdown-item" href="##">Updates</a>
           <a className="dropdown-item" href="##">Forums</a>
-        </div>
-      </div>
-      <div className="btn-group  mb-2" data-toggle="tooltip" data-placement="top" title="More Actions">
-        <button type="button" className="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> More <i className="uil uil-angle-down"></i> </button>
-        <div className="dropdown-menu">
-          <span className="dropdown-header">More Option :</span>
-          <a className="dropdown-item" href="##">Mark as Unread</a>
-          <a className="dropdown-item" href="##">Add to Tasks</a>
-          <a className="dropdown-item" href="##">Add Star</a>
-          <a className="dropdown-item" href="##">Mute</a>
         </div>
       </div>
     </Fragment>
@@ -109,13 +97,14 @@ class PayrollUser extends Component {
           { this.state.loadingUpdate && <div className="overlay-absolute center"><ClassicSpinner color="#5369f8" loading={true} /></div> }
         </RightBar>
         <Menu />
-        <div className="row mt-2">
+        <div className="row">
           <div className="col-12">
+            <h5 className="pb-2 mb-3 border-bottom border-2">User's Payroll</h5>
             { this.state.loading && <Loading /> }
             {
               this.state.users.map((r, key) => (
                 <ul className="message-list mb-1" key={key}>
-                  <li className="h-unset lh-unset radius-50">
+                  <li className="h-unset lh-unset radius-5">
                     <div className="row m-0 p-2 align-items-center right-bar-toggle pointer" onClick={this.slideToggle.bind(this, r.user_id)}>
                       <div className="col-auto px-0">
                         {
@@ -126,17 +115,18 @@ class PayrollUser extends Component {
                         }
                       </div>
                       <div className="col">
-                        <div className="text-primary text-nowrap f-600">{r.name}</div>
+                        <div className="text-dark text-9 text-nowrap f-600 lh-1">{r.name}</div>
+                        <div className="text-muted text-8 text-nowrap f-600 lh-1">{r.username}</div>
                       </div>
                       <div className="col text-truncate">
                         <div className="subject text-truncate text-9 f-600">
                           Rp. {(parseInt(r.u_pokok) + parseInt(r.u_transport) + parseInt(r.u_makan) + parseInt(r.u_anis)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}
                         </div>
                       </div>
-                      <div className="col-auto text-right text-success text-8">01:30 AM</div>
+                      <div className="col-auto text-right text-muted text-8">01:30 AM</div>
                       <div className="col-auto pr-0">
                         <div data-toggle="tooltip" data-placement="top" title="Folder">
-                          <span className="btn btn-xs btn-soft-primary radius-20 pointer same-25 p-0 center dropdown-toggle"> <i className="uil uil-angle-right"></i> </span>
+                          <span className="btn btn-xs text-dark radius-20 pointer same-25 p-0 center dropdown-toggle"> <i className="uil uil-angle-right"></i> </span>
                         </div>
                       </div>
                     </div>

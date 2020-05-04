@@ -4,21 +4,55 @@ import moment from 'moment'
 import con from "../../con/api"
 import "../app.scss"
 import Logo from "../../assets/images/logo-letter.png"
+import Select from '../../components/select'
 
 class KiosK extends React.Component {
   state = {
     absen:[],
-    loading:true
+    loading:true,
+    deviceAll:[],
+    devicesDefault:null,
+    selectedDevices:null
   }
   componentDidMount() {
     // document.body.style.color = 'red';
     document.body.classList.add('bg-danger');
     document.querySelector('.navbar').parentNode.removeChild(document.querySelector('.navbar'));
     // this.img.src = 'http://192.168.92.252/backend/public/img/capture1.jpg?'+Date.now();
-    this.fetchImage = setInterval( () => this.img.src = con.img+'/capture1.jpg?'+Date.now(), 75 );
     // axios.get('http://192.168.92.252/backend/api/image_data').then(res => this.setState({ images:`data:image/jpeg;base64,${res.data}` }));
+    axios.get(con.api+'/user/devices/list').then(res => {
+      const deviceAll = res.data.all.map(i => {
+        const dev = {};
+        dev['value'] = i;
+        dev['label'] = `Device ${i}`;
+        return dev;
+      });
+      const devicesDefault = res.data.default;
+      this.setState({deviceAll, devicesDefault})
+    }).then(() => {
+      this.fetchImage = setInterval( () => {
+        this.img.src = `${con.img}/devices/capture_${this.state.selectedDevices || this.state.devicesDefault}.jpg?${Date.now()}`;
+        //   this.state.selectedDevices.length === 0 ?
+        //   this.images = () => (
+        //     <div className="col">
+        //       <img src={`${con.img}/devices/capture_${this.state.devicesDefault}.jpg?${Date.now()}`} alt="" className="w-100 h-100"/>
+        //     </div>
+        //   )
+        //   :
+        //   this.images = () => (
+        //     this.state.selectedDevices.map((r, key) => (
+        //       <div className="col-md-6" key={key}>
+        //         {console.log(key)}
+        //         <img src={`${con.img}/devices/capture_${this.state.devicesDefault}.jpg?${Date.now()}`} alt="" className="w-100 h-100"/>
+        //       </div>
+        //     ))
+        //   )
+      }
+      , 1000 );
+    });
     this.fetchData = setInterval(() => {
-      axios.get(con.api+'/user/absen', {headers:con.headers}).then(res => {
+      axios.get(con.api+'/user/absen', {headers:con.headers, params:{device_id:this.state.selectedDevices}}).then(res => {
+        // console.log(res.config.params);
         this.setState({
           absen:res.data.absen,
           loading: false
@@ -28,12 +62,22 @@ class KiosK extends React.Component {
   }
   componentWillUnmount() {
     clearInterval(this.fetchImage);
+    clearInterval(this.fetchData);
+  }
+  onChangeDevices(e){
+    // console.log(e.value);
+    this.setState({selectedDevices: e.value});
   }
   render () {
     return (
       <div className="content-pages ou">
         <div className="content">
           <div className="container-fluid col-md-12">
+            {/* <div className="position-fixed b-0 r-0 p-3">
+              <div className="btn btn-rounded btn-success pointer">
+                <i className="uil uil-plus"></i>
+              </div>
+            </div> */}
             <div className="row pt-3">
               <div className="col-6">
                 <div className="p-3 bg-white text-center">
@@ -41,9 +85,21 @@ class KiosK extends React.Component {
                 </div>
                 <div className="card">
                   <div className="card-body p-0">
+                    {
+                      this.state.deviceAll.length !== 0 &&
+                      <Select
+                        data={ this.state.deviceAll }
+                        onChange={this.onChangeDevices.bind(this)}
+                        // multiple
+                        defaultValue={this.state.devicesDefault || this.state.devicesDefault.toString() || 0}
+                      />
+                    }
                     <div className="mx-auto oh">
                       <img src="" ref={i => this.img = i} alt="" className="h-100"/>
                     </div>
+                    {/* <div className="row">
+                      {(this.state.selectedDevices && this.images) && <this.images />}
+                    </div> */}
                   </div>
                 </div>
               </div>

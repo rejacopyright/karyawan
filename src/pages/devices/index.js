@@ -33,9 +33,9 @@ class Setting extends React.Component {
     this._isMounted = true;
     this.setState({ loading:false });
     document.title = 'Display';
-    this._isMounted && navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
-      console.log(navigator);
-    });
+    // this._isMounted && navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
+    //   console.log(navigator);
+    // });
   }
   componentWillUnmount() {
     this._isMounted = false;

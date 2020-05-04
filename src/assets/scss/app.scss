@@ -29,6 +29,9 @@ body {
 .nav-second-level li > a.active,
 .nav-thrid-level li > a.active {
   color: #5369f8; }
+.table tr th, .table tr td {
+  vertical-align: middle;
+}
 
 #wrapper {
   height: 100%;
@@ -44,15 +47,16 @@ body {
 
 .left-side-menu {
   width: $leftMenu;
-  background: #ffffff;
+  background: $sidebarColor;
   bottom: 0;
+  border-right: 1px solid $lightGrey;
   padding: 0 0 30px 0;
   position: fixed;
   top: $topBar;
   -webkit-transition-duration: .2s;
           transition-duration: .2s;
-  -webkit-box-shadow: 1px 0.05rem 0.01rem rgba(75, 75, 90, 0.075);
-          box-shadow: 1px 0.05rem 0.01rem rgba(75, 75, 90, 0.075);
+  // -webkit-box-shadow: 1px 0.05rem 0.01rem rgba(75, 75, 90, 0.075);
+  //         box-shadow: 1px 0.05rem 0.01rem rgba(75, 75, 90, 0.075);
   z-index: 99; }
   .left-side-menu .sidebar-content {
     height: 100%;
@@ -70,24 +74,27 @@ body {
   #sidebar-menu > ul > li > a {
     color: #4B4B5A;
     display: block;
-    padding: 10px;
+    padding: 5px 10px 5px 15px;
     font-size: 10pt;
     font-weight: 400;
     position: relative;
     -webkit-transition: all 0.4s;
     transition: all 0.4s;
-    border-left: 3px solid transparent; }
+    // border-left: 3px solid transparent;
+  }
     #sidebar-menu > ul > li > a svg {
       display: inline-block;
       width: 16px;
       height: 16px;
-      margin: 0 10px 5px 0;
+      vertical-align: sub;
+      margin: 0 5px 0 0;
       color: #4B4B5A;
       fill: rgba(75, 75, 90, 0.12); }
     #sidebar-menu > ul > li > a:hover, #sidebar-menu > ul > li > a:focus, #sidebar-menu > ul > li > a:active {
       color: #5369f8;
       text-decoration: none;
-      background-color: $light; }
+      // background-color: $light;
+    }
       #sidebar-menu > ul > li > a:hover svg, #sidebar-menu > ul > li > a:focus svg, #sidebar-menu > ul > li > a:active svg {
         color: #5369f8;
         fill: rgba(83, 105, 248, 0.1); }
@@ -101,9 +108,11 @@ body {
       vertical-align: middle;
       width: 20px; }
     #sidebar-menu > ul > li > a.active {
-      border-left: 3px solid #5369f8;
+      // border-left: 3px solid #5369f8;
+      border-left: unset;
       color: #5369f8;
-      background-color: $light; }
+      background-color: unset;
+    }
       #sidebar-menu > ul > li > a.active svg {
         color: #5369f8;
         fill: rgba(83, 105, 248, 0.1); }
@@ -203,8 +212,12 @@ body {
     position: relative;
     white-space: nowrap; }
     .left-side-menu-condensed .left-side-menu #sidebar-menu > ul > li > a {
-      padding: 15px;
-      min-height: 54px;
+      padding: 10px 15px;
+      display: -webkit-flex;
+      display: -ms-flex;
+      display: flex;
+      // justify-content: center;
+      // min-height: 54px;
       -webkit-transition: none;
       transition: none;
       margin: 0px; }
@@ -214,22 +227,32 @@ body {
         width: 26px; }
       .left-side-menu-condensed .left-side-menu #sidebar-menu > ul > li > a span {
         display: none;
-        padding-left: 25px;
-        vertical-align: baseline; }
+        line-height: 1.5;
+        padding-left: 0px;
+        vertical-align: middle; }
       .left-side-menu-condensed .left-side-menu #sidebar-menu > ul > li > a.active {
-        background-color: $light; }
-    .left-side-menu-condensed .left-side-menu #sidebar-menu > ul > li:hover > a {
-      position: relative;
-      width: calc(190px + 70px);
-      color: $primary !important;
-      border-radius: 0 50px 50px 0 ;
-      background-color: $light;
-      -webkit-box-shadow: 0 0.25rem 0.25rem rgba(75, 75, 90, 0.1) !important;
-      box-shadow: 0 0.25rem 0.25rem rgba(75, 75, 90, 0.1) !important;
-      -webkit-transition: none;
-      transition: none; }
+        background-color: $light;
+      }
+      .left-side-menu-condensed .left-side-menu #sidebar-menu > ul > li:hover > a {
+        position: relative;
+        width: -moz-fit-content;
+        width: -webkit-fit-content;
+        width: fit-content;
+        color: $primary !important;
+        border-radius: 0 50px 50px 0 ;
+        background-color: $white;
+        -webkit-box-shadow: 0 0.25rem 0.25rem rgba(75, 75, 90, 0.1) !important;
+        box-shadow: 0 0.25rem 0.25rem rgba(75, 75, 90, 0.1) !important;
+        -webkit-transition: none;
+        transition: none;
+      }
       .left-side-menu-condensed .left-side-menu #sidebar-menu > ul > li:hover > a span {
-        display: inline; }
+        display: -webkit-flex;
+        display: -ms-flex;
+        display: flex;
+        align-items: center;
+        line-height: 1.2;
+      }
     .left-side-menu-condensed .left-side-menu #sidebar-menu > ul > li:hover a.open :after, .left-side-menu-condensed .left-side-menu #sidebar-menu > ul > li:hover a.mm-active :after {
       display: none; }
     .left-side-menu-condensed .left-side-menu #sidebar-menu > ul > li:hover > ul {
@@ -351,7 +374,8 @@ body {
       background-color: #3b414e; }
       .left-side-menu-dark .left-side-menu #sidebar-menu > ul > li > a.active svg {
         color: #ffffff;
-        fill: rgba(255, 255, 255, 0.12); }
+        fill: rgba(255, 255, 255, 0.12);
+      }
   .left-side-menu-dark .left-side-menu #sidebar-menu .menu-title {
     color: #adb5bd; }
 
@@ -368,9 +392,10 @@ body {
 .left-side-menu-dark .nav-thrid-level li.mm-active > a {
   color: #ffffff; }
 
-.left-side-menu-dark.left-side-menu-condensed .left-side-menu #sidebar-menu > ul > li:hover > a {
-  background-color: #3b414e;
-  color: #ffffff !important; }
+  .left-side-menu-dark.left-side-menu-condensed .left-side-menu #sidebar-menu > ul > li:hover > a {
+    background-color: #3b414e;
+    color: #ffffff !important;
+}
 
 .left-side-menu-dark.left-side-menu-condensed .nav-second-level li.mm-active > a,
 .left-side-menu-dark.left-side-menu-condensed .nav-thrid-level li.mm-active > a {
@@ -393,7 +418,7 @@ body {
   right: 0px;
   height: $topBar;
   z-index: 100;
-  background-color: #ffffff;
+  background-color: $topbarColor;
   -webkit-box-shadow: 0 0.05rem 0.01rem rgba(75, 75, 90, 0.075);
           box-shadow: 0 0.05rem 0.01rem rgba(75, 75, 90, 0.075);
   /* Search */ }
@@ -2478,7 +2503,7 @@ div.dt-button-info {
     margin-bottom: -184px; }
   .email-container .inbox-rightbar {
     margin-left: $emailSize;
-    border-left: 5px solid #f3f4f7;
+    border-left: 2px solid $light;
     padding: 0 0 1.5rem 25px; }
 
 .message-list {

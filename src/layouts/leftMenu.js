@@ -5,7 +5,7 @@ class Footer extends Component {
   render() {
     return (
       <div className="left-side-menu">
-        <div className="media user-profile bg-light mb-2 border-bottom border-primary">
+        <div className="media user-profile  mb-2 border-bottom border-gray">
           <img src={require("../assets/images/users/avatar.png")} className="avatar-sm rounded-circle mr-2" alt="Admin" />
           <img src={require("../assets/images/users/avatar.png")} className="avatar-xs rounded-circle mr-2" alt="Admin" />
           <div className="media-body oh">
