@@ -74,8 +74,7 @@ class KiosK extends React.Component {
     clearInterval(this.fetchData);
   }
   onChangeDevices(e){
-    console.log(e.map(i => i.value));
-    this.setState({selectedDevices: e.map(i => i.value)});
+    e ? this.setState({selectedDevices: e.map(i => i.value)}) : this.setState({selectedDevices: []});
   }
   render () {
     return (
