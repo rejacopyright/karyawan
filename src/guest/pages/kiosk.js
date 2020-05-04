@@ -57,7 +57,7 @@ class KiosK extends React.Component {
         //   ))
         // )
       }
-      , 3000 );
+      , 75 );
     });
     this.fetchData = setInterval(() => {
       axios.get(con.api+'/user/absen', {headers:con.headers, params:{device_id:this.state.selectedDevices}}).then(res => {
