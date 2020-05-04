@@ -12,7 +12,7 @@ class KiosK extends React.Component {
     loading:true,
     deviceAll:[],
     devicesDefault:null,
-    selectedDevices:null
+    selectedDevices:[]
   }
   componentDidMount() {
     // document.body.style.color = 'red';
@@ -28,27 +28,36 @@ class KiosK extends React.Component {
         return dev;
       });
       const devicesDefault = res.data.default;
-      this.setState({deviceAll, devicesDefault})
+      this.setState({deviceAll, devicesDefault, selectedDevices: [devicesDefault]})
     }).then(() => {
       this.fetchImage = setInterval( () => {
-        this.img.src = `${con.img}/devices/capture_${this.state.selectedDevices || this.state.devicesDefault}.jpg?${Date.now()}`;
-        //   this.state.selectedDevices.length === 0 ?
-        //   this.images = () => (
-        //     <div className="col">
+        // Array.from(this.img.querySelectorAll('.camera-child')).map((r, i) => {
+        //   // i.querySelector('img').src = `${con.img}/devices/capture_${this.state.selectedDevices || this.state.devicesDefault}.jpg?${Date.now()}`;
+        //   console.log(i);
+        // });
+        // console.log(Array.from(this.img.querySelectorAll('.camera-child')));
+        // this.img.src = `${con.img}/devices/capture_${this.state.selectedDevices || this.state.devicesDefault}.jpg?${Date.now()}`;
+        this.state.selectedDevices.map((r, i) => {
+          Array.from(this.img.querySelectorAll('.camera-child'))[i].querySelector('img').src = `${con.img}/devices/capture_${r}.jpg?${Date.now()}`;
+          return true;
+        });
+        // this.state.selectedDevices.length === 0 ?
+        // this.images = () => (
+        //   <div className="col">
+        //     <img src={`${con.img}/devices/capture_${this.state.devicesDefault}.jpg?${Date.now()}`} alt="" className="w-100 h-100"/>
+        //   </div>
+        // )
+        // :
+        // this.images = () => (
+        //   this.state.selectedDevices.map((r, key) => (
+        //     <div className="col-md-6" key={key}>
+        //       {console.log(key)}
         //       <img src={`${con.img}/devices/capture_${this.state.devicesDefault}.jpg?${Date.now()}`} alt="" className="w-100 h-100"/>
         //     </div>
-        //   )
-        //   :
-        //   this.images = () => (
-        //     this.state.selectedDevices.map((r, key) => (
-        //       <div className="col-md-6" key={key}>
-        //         {console.log(key)}
-        //         <img src={`${con.img}/devices/capture_${this.state.devicesDefault}.jpg?${Date.now()}`} alt="" className="w-100 h-100"/>
-        //       </div>
-        //     ))
-        //   )
+        //   ))
+        // )
       }
-      , 75 );
+      , 3000 );
     });
     this.fetchData = setInterval(() => {
       axios.get(con.api+'/user/absen', {headers:con.headers, params:{device_id:this.state.selectedDevices}}).then(res => {
@@ -65,8 +74,8 @@ class KiosK extends React.Component {
     clearInterval(this.fetchData);
   }
   onChangeDevices(e){
-    // console.log(e.value);
-    this.setState({selectedDevices: e.value});
+    console.log(e.map(i => i.value));
+    this.setState({selectedDevices: e.map(i => i.value)});
   }
   render () {
     return (
@@ -90,12 +99,21 @@ class KiosK extends React.Component {
                       <Select
                         data={ this.state.deviceAll }
                         onChange={this.onChangeDevices.bind(this)}
-                        // multiple
+                        multiple
                         defaultValue={this.state.devicesDefault || this.state.devicesDefault.toString() || 0}
                       />
                     }
                     <div className="mx-auto oh">
-                      <img src="" ref={i => this.img = i} alt="" className="h-100"/>
+                      <div className="row align-items-center" ref={i => this.img = i}>
+                        {/* {console.log(this.state.selectedDevices)} */}
+                        {
+                          this.state.selectedDevices.length !== 0 &&
+                          this.state.selectedDevices.map(key => (
+                            <div className="camera-child col px-1" key={key}><img src="" alt="" className="w-100"/></div>
+                          ))
+                        }
+                      </div>
+                      {/* <img src="" ref={i => this.img = i} alt="" className="w-100"/> */}
                     </div>
                     {/* <div className="row">
                       {(this.state.selectedDevices && this.images) && <this.images />}
