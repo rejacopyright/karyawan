@@ -59,7 +59,7 @@ class KiosK extends React.Component {
     });
     this.fetchData = setInterval(() => {
       axios.get(con.api+'/user/absen', {headers:con.headers, params:{device_id:this.state.selectedDevices}}).then(res => {
-        // console.log(res.config.params);
+        // console.log(res.data);
         this.setState({
           absen:res.data.absen,
           loading: false
@@ -100,16 +100,16 @@ class KiosK extends React.Component {
                         defaultValue={this.state.devicesDefault || this.state.devicesDefault.toString() || 0}
                       />
                     }
+                    <div className="row align-items-center ml-0" ref={i => this.img = i} style={{marginTop:'-.25rem', marginRight: '-.25rem'}}>
+                      {/* {console.log(this.state.selectedDevices)} */}
+                      {
+                        this.state.selectedDevices.length !== 0 &&
+                        this.state.selectedDevices.map(key => (
+                          <div className="camera-child col pl-0 pr-1 mt-1" key={key} style={{minWidth:'50%'}}><img src="" alt="" className="w-100"/></div>
+                        ))
+                      }
+                    </div>
                     <div className="mx-auto oh">
-                      <div className="row align-items-center" ref={i => this.img = i} style={{marginTop:'-.25rem'}}>
-                        {/* {console.log(this.state.selectedDevices)} */}
-                        {
-                          this.state.selectedDevices.length !== 0 &&
-                          this.state.selectedDevices.map(key => (
-                            <div className="camera-child col px-1 mt-1" key={key} style={{minWidth:'50%'}}><img src="" alt="" className="w-100"/></div>
-                          ))
-                        }
-                      </div>
                       {/* <img src="" ref={i => this.img = i} alt="" className="w-100"/> */}
                     </div>
                     {/* <div className="row">
