@@ -22,10 +22,8 @@ class KiosK extends React.Component {
     // axios.get('http://192.168.92.252/backend/api/image_data').then(res => this.setState({ images:`data:image/jpeg;base64,${res.data}` }));
     axios.get(con.api+'/user/devices/list').then(res => {
       const deviceAll = res.data.all.map(i => {
-        const dev = {};
-        dev['value'] = i;
-        dev['label'] = `Device ${i}`;
-        return dev;
+        // const dev = {}; dev['value'] = i; dev['label'] = `Device ${i}`; return dev;
+        return {value: i, label: `Device ${i}`};
       });
       const devicesDefault = res.data.default;
       this.setState({deviceAll, devicesDefault, selectedDevices: [devicesDefault]})
@@ -103,12 +101,12 @@ class KiosK extends React.Component {
                       />
                     }
                     <div className="mx-auto oh">
-                      <div className="row align-items-center" ref={i => this.img = i}>
+                      <div className="row align-items-center" ref={i => this.img = i} style={{marginTop:'-.25rem'}}>
                         {/* {console.log(this.state.selectedDevices)} */}
                         {
                           this.state.selectedDevices.length !== 0 &&
                           this.state.selectedDevices.map(key => (
-                            <div className="camera-child col px-1" key={key}><img src="" alt="" className="w-100"/></div>
+                            <div className="camera-child col px-1 mt-1" key={key} style={{minWidth:'50%'}}><img src="" alt="" className="w-100"/></div>
                           ))
                         }
                       </div>
