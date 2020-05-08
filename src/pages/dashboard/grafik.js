@@ -1,33 +1,33 @@
 import React from 'react'
 import Chart from 'react-apexcharts'
-import moment from 'moment';
-import 'moment/locale/id';
+import axios from 'axios'
+import con from '../../con/api'
+import moment from 'moment'
+import 'moment/locale/id'
 
 class Grafik extends React.Component {
   _isMounted = false;
+  timeMin = (sub) => {
+    return moment().subtract(sub || 0, 'hours').format('HH:mm:ss');
+  }
   state = {
     series: [
-      {
-        name: 'Male',
-        data: [31, 40, 28, 51, 42]
-      },
-      {
-        name: 'Female',
-        data: [80, 32, 45, 90, 34]
-      }
+      { name: 'Absen', data: [0, 0, 0, 0, 0] },
+      { name: 'Hadir', data: [0, 0, 0, 0, 0] },
+      { name: 'Terdeteksi Kamera', data: [0, 0, 0, 0, 0] }
     ],
     options: {
       chart: {
         toolbar: { show: false },
       },
-      colors: ["#ff80ab", "#82b1ff"],
+      colors: ["#ff80ab", "#82b1ff", "#ffbe0b"],
       dataLabels: { enabled: false },
       stroke: { curve: 'smooth' },
       title: { text: 'People Analytic', align: 'left' },
       subtitle: { text: '5 Jam Terakhir ('+moment().format("dddd, DD MMMM YYYY")+')', align: 'left' },
       xaxis: {
         type: 'date',
-        categories: [moment().subtract(4, 'hours').format('HH:mm:ss'), moment().subtract(3, 'hours').format('HH:mm:ss'), moment().subtract(2, 'hours').format('HH:mm:ss'), moment().subtract(1, 'hours').format('HH:mm:ss'), moment().format('HH:mm:ss')]
+        categories: [this.timeMin(4), this.timeMin(3), this.timeMin(2), this.timeMin(1), this.timeMin()]
       },
       tooltip: {
         x: { format: 'HH:mm:ss' },
@@ -47,28 +47,21 @@ class Grafik extends React.Component {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
   }
   realtime(){
-    this.setState({
-      series: [
-        {
-          name: 'Male',
-          data: [this.randInt(20,100), this.randInt(20,100), this.randInt(20,100), this.randInt(20,100), this.randInt(20,100)]
-        },
-        {
-          name: 'Female',
-          data: [this.randInt(20,100), this.randInt(20,100), this.randInt(20,100), this.randInt(20,100), this.randInt(20,100)]
+    axios.get(con.api+'/grafik', {headers:con.headers}).then(res => {
+      this.setState({
+        series: [ res.data.series.hadir, res.data.series.absen, res.data.series.detected ],
+        options:{
+          ...this.state.options,
+          xaxis:{
+            type: 'datetime',
+            categories: [this.timeMin(4), this.timeMin(3), this.timeMin(2), this.timeMin(1), this.timeMin()]
+          }
         }
-      ],
-      options:{
-        ...this.state.options,
-        xaxis:{
-          type: 'datetime',
-          categories: [moment().subtract(4, 'hours').format('HH:mm:ss'), moment().subtract(3, 'hours').format('HH:mm:ss'), moment().subtract(2, 'hours').format('HH:mm:ss'), moment().subtract(1, 'hours').format('HH:mm:ss'), moment().format('HH:mm:ss')]
-        }
-      }
+      });
     });
   }
   componentDidMount() {
-    this.timerID = setInterval( () => this.realtime(), 5000 );
+    this.timerID = setInterval( () => this.realtime(), 1000 );
   }
   componentWillUnmount() {
     clearInterval(this.timerID);

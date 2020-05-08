@@ -1,8 +1,8 @@
 import React from 'react'
 import { Switch, Route, Link } from "react-router-dom"
 // STATUS PAGES
-import Today from "./today"
-import Belum from "./belum"
+import Hadir from "./hadir"
+import Absen from "./absen"
 import Ijin from "./ijin"
 import Cuti from "./cuti"
 import Detail from "./detail"
@@ -10,7 +10,7 @@ import Detail from "./detail"
 // import 'moment/locale/id'
 import feather from 'feather-icons'
 
-class Absen extends React.Component {
+class Index extends React.Component {
   componentDidMount() {
     feather.replace();
   }
@@ -25,8 +25,8 @@ class Absen extends React.Component {
                   <div className="inbox-leftbar px-3 pt-0">
                     <h5>Absensi Karyawan</h5>
                     <div className="mail-list mt-2">
-                      <Link to="/absen/belum" className="list-group-item center-left border-0 px-0 py-1 text-9"> <i data-feather="user-x" className="icon-dual icon-xxs mr-2" /> Belum Absen <span className="ml-auto text-9">7</span></Link>
-                      <Link to="/absen" className="list-group-item center-left border-0 px-0 py-1 text-9"> <i data-feather="user-check" className="icon-dual icon-xxs mr-2" /> Sudah Absen <span className="ml-auto text-9">22</span></Link>
+                      <Link to="/absen" className="list-group-item center-left border-0 px-0 py-1 text-9"> <i data-feather="user-check" className="icon-dual icon-xxs mr-2" /> Hadir <span className="ml-auto text-9">22</span></Link>
+                      <Link to="/absen/absen" className="list-group-item center-left border-0 px-0 py-1 text-9"> <i data-feather="user-x" className="icon-dual icon-xxs mr-2" /> Absen <span className="ml-auto text-9">7</span></Link>
                       <Link to="/absen/ijin" className="list-group-item center-left border-0 px-0 py-1 text-9"> <i data-feather="users" className="icon-dual icon-xxs mr-2" /> Ijin / Sakit <span className="ml-auto text-9">2</span></Link>
                       <Link to="/absen/cuti" className="list-group-item center-left border-0 px-0 py-1 text-9"> <i data-feather="calendar" className="icon-dual icon-xxs mr-2" /> Cuti <span className="ml-auto text-9">2</span></Link>
                     </div>
@@ -48,8 +48,8 @@ class Absen extends React.Component {
                     </div>
                     <div className="mt-2">
                       <Switch>
-                        <Route exact path="/absen" component={Today} />
-                        <Route exact path="/absen/belum" component={Belum} />
+                        <Route exact path="/absen" component={Hadir} />
+                        <Route exact path="/absen/absen" component={Absen} />
                         <Route exact path="/absen/ijin" component={Ijin} />
                         <Route exact path="/absen/cuti" component={Cuti} />
                         <Route exact path="/absen/detail/:user_id" component={Detail} />
@@ -67,4 +67,4 @@ class Absen extends React.Component {
   }
 }
 
-export default Absen;
+export default Index;

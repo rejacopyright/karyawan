@@ -16,7 +16,7 @@ const Loading = () => (
     </div>
   </div>
 )
-class Belum extends React.Component {
+class Absen extends React.Component {
   _isMounted = false;
   state = {
     user:[],
@@ -25,7 +25,7 @@ class Belum extends React.Component {
   componentDidMount() {
     this._isMounted = true;
     this._isMounted && axios.get(con.api+'/absen', {headers:con.headers}).then(res => {
-      this.setState({ user: res.data.belum, loading: false });
+      this.setState({ user: res.data.absen, loading: false });
     });
     document.title = 'Absen Hari Ini';
   }
@@ -35,7 +35,7 @@ class Belum extends React.Component {
   render () {
     return (
       <Fragment>
-        <h5 className="pb-2 mb-3 border-bottom border-2">List karyawan yang belum absen hari ini</h5>
+        <h5 className="pb-2 mb-3 border-bottom border-2">List karyawan yang absen hari ini</h5>
         {
           this.state.loading ? [1,2,3].map(key => <Loading key={key} />) :
           this.state.user.map((r, key) => (
@@ -47,4 +47,4 @@ class Belum extends React.Component {
   }
 }
 
-export default Belum;
+export default Absen;

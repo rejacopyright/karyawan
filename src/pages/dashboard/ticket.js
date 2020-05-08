@@ -13,8 +13,8 @@ class Ticket extends React.Component {
   render () {
     return (
       <div className="card">
-        <div className="alerts bg-secondary text-white my-0 py-2 px-4 f-700">Tickets</div>
-        <div className="card-body py-0">
+        <div className="alerts bg-light my-0 py-2 px-4">Tickets</div>
+        <div className="card-body py-0 shadow-xs">
           {
             this.state.data.map((r, key) => (
               <div className="media border-top pt-3" key={key}>
