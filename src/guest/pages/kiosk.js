@@ -7,6 +7,7 @@ import Logo from "../../assets/images/logo-letter.png"
 import Select from '../../components/select'
 
 class KiosK extends React.Component {
+  _isMounted = false;
   state = {
     hadir:[],
     loading:true,
@@ -15,12 +16,13 @@ class KiosK extends React.Component {
     selectedDevices:[]
   }
   componentDidMount() {
+    this._isMounted = true;
     // document.body.style.color = 'red';
     document.body.classList.add('bg-danger');
     document.querySelector('.navbar').parentNode.removeChild(document.querySelector('.navbar'));
     // this.img.src = 'http://192.168.92.252/backend/public/img/capture1.jpg?'+Date.now();
     // axios.get('http://192.168.92.252/backend/api/image_data').then(res => this.setState({ images:`data:image/jpeg;base64,${res.data}` }));
-    axios.get(con.api+'/user/devices/list').then(res => {
+    this._isMounted && axios.get(con.api+'/user/devices/list').then(res => {
       const deviceAll = res.data.all.map(i => {
         // const dev = {}; dev['value'] = i; dev['label'] = `Device ${i}`; return dev;
         return {value: i, label: `Device ${i}`};
@@ -55,17 +57,16 @@ class KiosK extends React.Component {
         //   ))
         // )
       }
-      , 750 );
+      , 100 );
     });
     this.fetchData = setInterval(() => {
       axios.get(con.api+'/user/absen', {headers:con.headers, params:{device_id:this.state.selectedDevices}}).then(res => {
-        console.log(res.data);
         this.setState({
           hadir:res.data.hadir,
           loading: false
         });
       });
-    }, 3000);
+    }, 1000);
   }
   componentWillUnmount() {
     clearInterval(this.fetchImage);
@@ -73,6 +74,17 @@ class KiosK extends React.Component {
   }
   onChangeDevices(e){
     e ? this.setState({selectedDevices: e.map(i => i.value)}) : this.setState({selectedDevices: []});
+  }
+  refresh(){
+    this.setState({deviceAll: [], devicesDefault:null, selectedDevices:[]});
+    axios.get(con.api+'/user/devices/list').then(res => {
+      const deviceAll = res.data.all.map(i => {
+        // const dev = {}; dev['value'] = i; dev['label'] = `Device ${i}`; return dev;
+        return {value: i, label: `Device ${i}`};
+      });
+      const devicesDefault = res.data.default;
+      this.setState({deviceAll, devicesDefault, selectedDevices: [devicesDefault]})
+    });
   }
   render () {
     return (
@@ -86,8 +98,9 @@ class KiosK extends React.Component {
             </div> */}
             <div className="row pt-3">
               <div className="col-6">
-                <div className="p-3 bg-white text-center">
+                <div className="p-3 bg-white center-left">
                   <img src={Logo} alt="" className="w-50" />
+                  <button type="button" className="btn btn-xs btn-soft-danger ml-auto" onClick={this.refresh.bind(this)}>Refresh Devices</button>
                 </div>
                 <div className="card">
                   <div className="card-body p-0">
