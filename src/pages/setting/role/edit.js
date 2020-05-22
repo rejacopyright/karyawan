@@ -112,28 +112,28 @@ class EditRole extends Component {
           <div className="col-md-3">
             <Checkbox id="user_scope" label="User" rowClass="mb-2" onChange={this.checkAll.bind(this)} />
             <div className="pl-3" ref={i => this.user_scope = i}>
-              <Checkbox name="user_read" id="user_read" title="View" onChange={this.checkSingle.bind(this)} />
-              <Checkbox name="user_create" id="user_create" title="Create" onChange={this.checkSingle.bind(this)} />
-              <Checkbox name="user_update" id="user_update" title="Edit" onChange={this.checkSingle.bind(this)} />
-              <Checkbox name="user_delete" id="user_delete" title="Remove" onChange={this.checkSingle.bind(this)} />
+              <Checkbox small name="user_read" id="user_read" label="View" onChange={this.checkSingle.bind(this)} />
+              <Checkbox small name="user_create" id="user_create" label="Create" onChange={this.checkSingle.bind(this)} />
+              <Checkbox small name="user_update" id="user_update" label="Edit" onChange={this.checkSingle.bind(this)} />
+              <Checkbox small name="user_delete" id="user_delete" label="Remove" onChange={this.checkSingle.bind(this)} />
             </div>
           </div>
           {/* Absensi */}
           <div className="col-md-3">
             <Checkbox id="absen_scope" label="Absensi" rowClass="mb-2" onChange={this.checkAll.bind(this)} />
             <div className="pl-3" ref={i => this.absen_scope = i}>
-              <Checkbox name="absen_read" id="absen_read" title="View" onChange={this.checkSingle.bind(this)} />
-              <Checkbox name="absen_create" id="absen_create" title="Create" onChange={this.checkSingle.bind(this)} />
-              <Checkbox name="absen_update" id="absen_update" title="Edit" onChange={this.checkSingle.bind(this)} />
-              <Checkbox name="absen_delete" id="absen_delete" title="Remove" onChange={this.checkSingle.bind(this)} />
+              <Checkbox small name="absen_read" id="absen_read" label="View" onChange={this.checkSingle.bind(this)} />
+              <Checkbox small name="absen_create" id="absen_create" label="Create" onChange={this.checkSingle.bind(this)} />
+              <Checkbox small name="absen_update" id="absen_update" label="Edit" onChange={this.checkSingle.bind(this)} />
+              <Checkbox small name="absen_delete" id="absen_delete" label="Remove" onChange={this.checkSingle.bind(this)} />
             </div>
           </div>
           {/* Setting */}
           <div className="col-md-3">
             <Checkbox id="setting_scope" label="Setting" rowClass="mb-2" onChange={this.checkAll.bind(this)} />
             <div className="pl-3" ref={i => this.setting_scope = i}>
-              <Checkbox name="setting_master" id="setting_master" title="Settings Master" onChange={this.checkSingle.bind(this)} />
-              <Checkbox name="setting_personal" id="setting_personal" title="Personal Setting" onChange={this.checkSingle.bind(this)} />
+              <Checkbox small name="setting_master" id="setting_master" label="Settings Master" onChange={this.checkSingle.bind(this)} />
+              <Checkbox small name="setting_personal" id="setting_personal" label="Personal Setting" onChange={this.checkSingle.bind(this)} />
             </div>
           </div>
         </div>

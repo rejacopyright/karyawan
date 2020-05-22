@@ -99,7 +99,7 @@ class PayrollUser extends Component {
         <Menu />
         <div className="row">
           <div className="col-12">
-            <h5 className="pb-2 mb-3 border-bottom border-2">User's Payroll</h5>
+            <h5 className="pb-2 mb-3 border-bottom border-2">User's View</h5>
             { this.state.loading && <Loading /> }
             {
               this.state.users.map((r, key) => (

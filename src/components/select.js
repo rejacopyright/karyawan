@@ -64,15 +64,16 @@ const customStyles = {
   }),
   valueContainer: (provided, state) => ({
     ...provided,
-    padding: '0 0 0 10px',
+    padding: '0 0 0 5px',
     fontSize: '9pt',
   }),
   menuList: (provided, state) => ({
     ...provided,
-    height: '200px',
+    height: '150px',
   }),
   menu: (provided, state) => ({
     ...provided,
+    marginTop: 0,
     borderRadius: 5,
     boxShadow: '0 1px hsla(0,0%,0%,0.1), 0 1px 5px hsla(0,0%,0%,0.1)',
   }),
@@ -82,7 +83,16 @@ const customStyles = {
   }),
   dropdownIndicator: (provided, state) => ({
     ...provided,
-    padding: 5,
+    padding: '1px 5px',
+  }),
+  multiValue: (provided, state) => ({
+    ...provided,
+    backgroundColor: '#e6e9fe',
+    color: '#5369f8',
+  }),
+  multiValueLabel: (provided, state) => ({
+    ...provided,
+    color: '#5369f8',
   }),
   multiValueRemove: (provided, state) => ({
     ...provided,
@@ -91,7 +101,10 @@ const customStyles = {
       color: 'inherit',
       backgroundColor: 'inherit',
     },
-    opacity: .25,
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    paddingLeft: 0,
+    paddingRight: 2,
+    opacity: .5,
   }),
   singleValue: (provided, state) => {
     const opacity = state.isDisabled ? 0.5 : 1;
@@ -126,7 +139,8 @@ class Select extends Component {
     isLoading:false,
     page:1,
     query:'',
-    defaultValue: null
+    defaultValue: null,
+    loading: true,
   }
   dataset(){
     this.props.data ? this.setState({data:this.props.data, isLoading:false}) :
@@ -138,7 +152,7 @@ class Select extends Component {
         rj['label'] = i[this.props.label];
         return rj;
       });
-      this.setState({data:(r.length ? r : [{}]), isLoading:false});
+      this.setState({data:(r.length ? r : [{}]), isLoading:false, loading:false});
     });
   }
   onInputChange(e){
@@ -162,17 +176,38 @@ class Select extends Component {
     }
   }
   componentDidMount(){
-    (this.props.defaultValue && this.props.data) ?
-    /*eslint-disable*/
-    this.setState({defaultValue: this.props.data.find(i => i.value == this.props.defaultValue)}) :
-    this.props.defaultValue && axios.get(this.props.defaultValue, {headers:con.headers}).then(res => {
-      if (res.data[this.props.param]) {
-        const rj = {};
-        rj['value'] = res.data[this.props.param][this.props.value];
-        rj['label'] = res.data[this.props.param][this.props.label];
-        this.setState({defaultValue: rj});
+    if (this.props.defaultValue && this.props.data) {
+      /*eslint-disable*/
+      this.setState({defaultValue: this.props.data.find(i => i.value == this.props.defaultValue)}, () => this.setState({loading:false}))
+    }else {
+      if (this.props.defaultValue && this.props.multiple) {
+        const uri = new URL(this.props.defaultValue);
+        const href = uri.origin+uri.pathname;
+        const params = {};
+        params[uri.search.replace('?', '').split('=')[0]] = JSON.parse(uri.search.replace('?', '').split('=')[1]);
+        this.props.defaultValue && axios.get(href, {headers:con.headers, params}).then(res => {
+          if (res.data[this.props.param].length) {
+            const rj = [];
+            for (let item of res.data[this.props.param]) {
+              const i = {};
+              i['value'] = item[this.props.value];
+              i['label'] = item[this.props.label];
+              rj.push(i);
+            }
+            this.setState({defaultValue: rj});
+          }
+        }).then(() => this.setState({loading:false}));
+      }else {
+        this.props.defaultValue && axios.get(this.props.defaultValue, {headers:con.headers}).then(res => {
+          if (res.data[this.props.param]) {
+            const rj = {};
+            rj['value'] = res.data[this.props.param][this.props.value];
+            rj['label'] = res.data[this.props.param][this.props.label];
+            this.setState({defaultValue: rj});
+          }
+        }).then(() => this.setState({loading:false}));
       }
-    });
+    }
     this.dataset();
   }
   render(){
@@ -180,8 +215,10 @@ class Select extends Component {
       <div className={this.props.rowClass}>
         {this.props.bold && this.props.title ? <label>{this.props.title}</label> : this.props.title && <small className="d-block">{this.props.title}</small>}
         {
-          !this.state.data.length ?
-          <Skeleton width="100%" height="35px" count={1} widthRandomness={0} color="#f5f5f5" borderRadius="5px" />
+          this.state.loading ?
+          <div className="d-block oh" style={{height:'29px'}}>
+            <Skeleton width="100%" height="30px" count={1} widthRandomness={0} color="#f5f5f5" borderRadius="5px" />
+          </div>
           :
           <ReactSelect
             defaultValue={
@@ -192,9 +229,10 @@ class Select extends Component {
             name={this.props.name}
             placeholder={this.props.placeholder}
             noOptionsMessage={(e) => e.inputValue = this.props.noOptionsMessage || 'No Data...'}
-            cacheOptions
+            // cacheOptions
             isLoading={this.state.isLoading}
             isMulti={this.props.multiple}
+            closeMenuOnSelect={(this.props.multiple && this.props.dontClose) ? false : true}
             isClearable={this.props.isClearable}
             inputValue={this.state.query}
             options={this.props.data || this.state.data}

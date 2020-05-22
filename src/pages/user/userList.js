@@ -54,7 +54,8 @@ class Dashboard extends Component {
   }
   componentDidUpdate(prev){
     if (this.props.search !== prev.search) {
-      this.setState({ q: {...this.state.q, search: this.props.search} }, this.fire);
+      this.fire();
+      // this.setState({ q: {...this.state.q, search: this.props.search} }, this.fire);
     }
   }
   userDetail(userId){

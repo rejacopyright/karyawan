@@ -32,6 +32,8 @@ class Routes extends Component {
       }
     }
     this.unlisten = this.props.history.listen((location, action) => {
+      document.querySelector('#search').value = '';
+      this.props.dispatch({type:'SEARCH', value: ''});
       expired();
     });
     window.addEventListener('mouseover', expired);

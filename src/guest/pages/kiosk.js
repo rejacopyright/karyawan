@@ -8,7 +8,7 @@ import Select from '../../components/select'
 
 class KiosK extends React.Component {
   state = {
-    absen:[],
+    hadir:[],
     loading:true,
     deviceAll:[],
     devicesDefault:null,
@@ -55,17 +55,17 @@ class KiosK extends React.Component {
         //   ))
         // )
       }
-      , 75 );
+      , 750 );
     });
     this.fetchData = setInterval(() => {
       axios.get(con.api+'/user/absen', {headers:con.headers, params:{device_id:this.state.selectedDevices}}).then(res => {
-        // console.log(res.data);
+        console.log(res.data);
         this.setState({
-          absen:res.data.absen,
+          hadir:res.data.hadir,
           loading: false
         });
       });
-    }, 1000);
+    }, 3000);
   }
   componentWillUnmount() {
     clearInterval(this.fetchImage);
@@ -122,7 +122,7 @@ class KiosK extends React.Component {
                 <div className="p-3 text-center"> <h2 className="text-white">Attendance List</h2> </div>
                 <div className="row align-items-center">
                   {
-                    !this.state.loading && this.state.absen.slice(0,6).map((r, key) => (
+                    !this.state.loading && this.state.hadir.slice(0,6).map((r, key) => (
                       <div className="col-md-4" key={key}>
                         <div className="center mb-2">
                           <div className="same-125 mx-auto radius-100 oh bg-img" style={{ backgroundImage: `url('${con.img}/user/thumb/${r.img}')` }}> </div>
@@ -131,6 +131,7 @@ class KiosK extends React.Component {
                           <div className="card-body radius-0 py-2 text-center">
                             <div className="d-block text-18 text-truncate"> {r.user.name} </div>
                             <div className="d-block text-9"> {moment(r.created_at).format('HH:mm')} </div>
+                            <div className="d-block text-9 badge badge-soft-primary"> Device {r.device_id} </div>
                           </div>
                         </div>
                       </div>

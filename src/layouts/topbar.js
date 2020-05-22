@@ -38,7 +38,7 @@ class TopBar extends Component {
               <div className="app-search">
                 <form>
                   <div className="input-group">
-                    <input type="text" className="form-control" placeholder="Search..." onChange={e => this.props.dispatch({type:'SEARCH', value:e.target.value})} />
+                    <input type="text" id="search" className="form-control" placeholder="Search..." onChange={e => this.props.dispatch({type:'SEARCH', value:e.target.value})} />
                     <span data-feather="search" />
                   </div>
                 </form>

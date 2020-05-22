@@ -1,8 +1,8 @@
-import React from 'react';
-import cookie from 'js-cookie';
-import axios from 'axios';
-import con from '../con/api';
-import Pagination from '../components/pagination';
+import React from 'react'
+import cookie from 'js-cookie'
+import axios from 'axios'
+import con from '../con/api'
+import Pagination from '../components/pagination'
 // import moment from 'moment';
 // import 'moment/locale/id';
 
@@ -11,14 +11,14 @@ class Dashboard extends React.Component {
   state = {
     user: cookie.getJSON('user') || [],
     loading: true,
-    absen: [],
+    device: [],
     page: 1,
     pagination:{},
   }
   dataUpdate(){
     axios.get(con.api+'/absen/test', {headers:con.headers, params:{page:this.state.page}}).then(res => {
-      delete res.data.page['data'];
-      this.setState({ absen:res.data.absen, pagination: res.data.page });
+      delete res.data.page.data;
+      this.setState({ device:res.data.device, pagination: res.data.page });
     });
   }
   componentDidMount() {
@@ -47,7 +47,7 @@ class Dashboard extends React.Component {
               <div className="col-12">
                 <ol start={this.state.pagination.from}>
                   {
-                    this.state.absen.map((r, key) => (
+                    this.state.device.map((r, key) => (
                       <li key={key}>
                         <span className="mr-2 f-600">{r.user.name}</span>
                         <span className="text-muted text-8">({new Date(r.created_at).toString()})</span>

@@ -56,13 +56,13 @@ class Setting extends Component {
                   <h4 className="border-bottom border-2 pb-1">Profile Instansi</h4>
                   <div className="row">
                     <div className="col-12 mb-2">
-                      <Input name="name" title="Nama Instansi" placeholder="Nama Instansi" defaultValue={this.state.setting.name} onChange={i => this.props.handleSettingName(i)} />
+                      <Input sm name="name" title="Nama Instansi" placeholder="Nama Instansi" defaultValue={this.state.setting.name} onChange={i => this.props.handleSettingName(i)} />
                     </div>
                     <div className="col-12 mb-2">
-                      <Textarea name="desc" title="Deskripsi" placeholder="Deskripsi instansi..." defaultValue={this.state.setting.desc} rows={5} />
+                      <Textarea sm name="desc" title="Deskripsi" placeholder="Deskripsi instansi..." defaultValue={this.state.setting.desc} rows={5} />
                     </div>
                     <div className="col-12 text-right">
-                      <button type="submit" className="btn btn-sm btn-rounded btn-white text-dark"><i className="uil uil-check-circle mr-1" />Simpan Perubahan</button>
+                      <button type="submit" className="btn btn-xs radius-5 btn-soft-success"><i className="uil uil-check-circle mr-1" />Simpan Perubahan</button>
                     </div>
                   </div>
                 </form>

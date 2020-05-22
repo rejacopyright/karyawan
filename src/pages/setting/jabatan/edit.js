@@ -1,9 +1,9 @@
 import React, {Component, Fragment} from 'react'
 import {withRouter} from 'react-router'
-import {Input, Textarea} from '../../../components/form'
+import {Input, Textarea, Desimal} from '../../../components/form'
 import axios from 'axios'
 import con from '../../../con/api'
-import { ClassicSpinner } from "react-spinners-kit"
+// import { ClassicSpinner } from "react-spinners-kit"
 import Modal from '../../../components/modal'
 
 class EditJabatan extends Component {
@@ -22,12 +22,13 @@ class EditJabatan extends Component {
   }
   componentWillUnmount(){
     this._isMounted = false;
-    this.setState({loading:false});
+    // this.setState({loading:false});
   }
   onSubmit(e){
     e.preventDefault();
     const form = e.target, q = {jabatan_id: this.props.match.params.jabatanId};
     q['name'] = form.querySelector('input[name=name]').value;
+    q['salary'] = parseFloat(form.querySelector('input[name=salary]').value.split('.').join('').replace(',', '.'));
     q['desc'] = form.querySelector('textarea[name=desc]').value;
 
     // Store
@@ -35,6 +36,7 @@ class EditJabatan extends Component {
       this.setState({loading:true});
       axios.post(con.api+'/jabatan/update', q, {headers:con.headers}).then(res => {
         this.setState({loading:false}, () => {
+          this.props.history.push('/jabatan');
           this.props.onSubmit(`Berhasil Mengupdate ${res.data.name}`);
         });
       });
@@ -60,7 +62,7 @@ class EditJabatan extends Component {
     )
     return(
       <form onSubmit={this.onSubmit.bind(this)} ref={i => this.form = i}>
-        { this.state.loading && <div className="overlay center"><ClassicSpinner color="#5369f8" loading={true} /></div> }
+        {/* { this.state.loading && <div className="overlay center"><ClassicSpinner color="#5369f8" loading={true} /></div> } */}
         <Modal id="deleteModal" content={<ModalDelete />} />
         <div className="row">
           <div className="col-12">
@@ -70,7 +72,8 @@ class EditJabatan extends Component {
               <span className="btn btn-xs radius-20 text-danger mr-2 pointer float-right" data-toggle="modal" data-target="#deleteModal"><i className="uil uil-trash mr-1" />Hapus Jabatan</span>
             </h5>
           </div>
-          <Input defaultValue={this.state.jabatan.name} sm rowClass="col-12 mb-2" name="name" title="Nama Jabatan" placeholder="Nama Jabatan" />
+          <Input defaultValue={this.state.jabatan.name} sm rowClass="col-md-6 mb-2" name="name" title="Nama Jabatan" placeholder="Nama Jabatan" />
+          <Desimal sm rowClass="col-md-6 mb-2" name="salary" title="Basic Salary" placeholder="Basic Salary" value={this.state.jabatan.salary || ''} icon="Rp." />
           <Textarea defaultValue={this.state.jabatan.desc} sm rowClass="col-12 mb-2" name="desc" title="Deskripsi" placeholder="Deskripsi singkat jabatan..." rows={3} />
         </div>
       </form>
