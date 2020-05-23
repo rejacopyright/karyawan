@@ -13,7 +13,8 @@ class KiosK extends React.Component {
     loading:true,
     deviceAll:[],
     devicesDefault:null,
-    selectedDevices:[]
+    selectedDevices:[],
+    speed: 100
   }
   componentDidMount() {
     this._isMounted = true;
@@ -57,7 +58,7 @@ class KiosK extends React.Component {
         //   ))
         // )
       }
-      , 100 );
+      , this.state.speed || 100 );
     });
     this.fetchData = setInterval(() => {
       axios.get(con.api+'/user/absen', {headers:con.headers, params:{device_id:this.state.selectedDevices}}).then(res => {
@@ -73,7 +74,17 @@ class KiosK extends React.Component {
     clearInterval(this.fetchData);
   }
   onChangeDevices(e){
-    e ? this.setState({selectedDevices: e.map(i => i.value)}) : this.setState({selectedDevices: []});
+    if (e) {
+      console.log(e.map(i => i.value));
+      // console.log(e.map(i => i.value).sort((a,b) => a-b));
+    }
+    const length = e ? e.length : 0;
+    const speed = 75 + (length * 25);
+    e ?
+    this.setState({selectedDevices : []}, () => {
+      this.setState({selectedDevices: e.map(i => i.value), speed: speed });
+    })
+    : this.setState({selectedDevices: []});
   }
   refresh(){
     this.setState({deviceAll: [], devicesDefault:null, selectedDevices:[]});

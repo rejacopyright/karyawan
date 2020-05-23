@@ -3,7 +3,18 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import con from '../con/api'
 import ReactSelect, {components} from 'react-select'
+import { SortableContainer, SortableElement } from 'react-sortable-hoc'
 import Skeleton from 'react-skeleton-loader'
+
+const MultiValue = SortableElement(props => {
+  const onMouseDown = e => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+  const innerProps = { onMouseDown };
+  return <components.MultiValue {...props} innerProps={innerProps} />;
+});
+const SortableSelect = SortableContainer(ReactSelect);
 
 // -------------------------- Option --------------------------
 // ----- Jika Menggunakan Data Statis -----
@@ -141,6 +152,7 @@ class Select extends Component {
     query:'',
     defaultValue: null,
     loading: true,
+    value: null
   }
   dataset(){
     this.props.data ? this.setState({data:this.props.data, isLoading:false}) :
@@ -154,6 +166,11 @@ class Select extends Component {
       });
       this.setState({data:(r.length ? r : [{}]), isLoading:false, loading:false});
     });
+  }
+  arrayMove(array, from, to) {
+    array = array.slice();
+    array.splice(to < 0 ? array.length + to : to, 0, array.splice(from, 1)[0]);
+    return array;
   }
   onInputChange(e){
     this.setState({query: e, page:1, isLoading:true}, () => this.dataset());
@@ -175,10 +192,20 @@ class Select extends Component {
       }).then(() => this.setState({isLoading:false}));
     }
   }
+  onSortEnd({ oldIndex, newIndex }){
+    const e = this.arrayMove(this.state.value, oldIndex, newIndex);
+    this.setState({value: e});
+    this.props.onChange(e)
+  };
+  onChange(e){
+    this.setState({value: e || null});
+    this.props.onChange(e);
+  }
   componentDidMount(){
     if (this.props.defaultValue && this.props.data) {
       /*eslint-disable*/
-      this.setState({defaultValue: this.props.data.find(i => i.value == this.props.defaultValue)}, () => this.setState({loading:false}))
+      const val = this.props.data.find(i => i.value == this.props.defaultValue);
+      this.setState({defaultValue: val, value: val}, () => this.setState({loading:false}))
     }else {
       if (this.props.defaultValue && this.props.multiple) {
         const uri = new URL(this.props.defaultValue);
@@ -194,7 +221,7 @@ class Select extends Component {
               i['label'] = item[this.props.label];
               rj.push(i);
             }
-            this.setState({defaultValue: rj});
+            this.setState({defaultValue: rj, value: rj});
           }
         }).then(() => this.setState({loading:false}));
       }else {
@@ -203,7 +230,7 @@ class Select extends Component {
             const rj = {};
             rj['value'] = res.data[this.props.param][this.props.value];
             rj['label'] = res.data[this.props.param][this.props.label];
-            this.setState({defaultValue: rj});
+            this.setState({defaultValue: rj, value:rj});
           }
         }).then(() => this.setState({loading:false}));
       }
@@ -220,6 +247,32 @@ class Select extends Component {
             <Skeleton width="100%" height="30px" count={1} widthRandomness={0} color="#f5f5f5" borderRadius="5px" />
           </div>
           :
+          this.props.multiple ?
+          <SortableSelect
+            defaultValue={ this.props.defaultValue && this.state.defaultValue }
+            value={ this.state.value }
+            axis="xy"
+            onSortEnd={this.onSortEnd.bind(this)}
+            distance={4}
+            getHelperDimensions={({ node }) => node.getBoundingClientRect()}
+            isMulti
+            styles={customStyles}
+            components={{ DropdownIndicator, ClearIndicator, MultiValueRemove, MultiValue: MultiValue }}
+            name={this.props.name}
+            placeholder={this.props.placeholder}
+            noOptionsMessage={(e) => e.inputValue = this.props.noOptionsMessage || 'No Data...'}
+            // cacheOptions
+            isLoading={this.state.isLoading}
+            closeMenuOnSelect={(this.props.multiple && this.props.dontClose) ? false : true}
+            isClearable={this.props.isClearable}
+            inputValue={this.state.query}
+            options={this.props.data || this.state.data}
+            onInputChange={this.onInputChange.bind(this)}
+            onChange={this.onChange.bind(this)}
+            onMenuScrollToTop={!this.props.data && this.scrollTo.bind(this, 'top')}
+            onMenuScrollToBottom={!this.props.data && this.scrollTo.bind(this, 'bottom')}
+          />
+          :
           <ReactSelect
             defaultValue={
               this.props.defaultValue && this.state.defaultValue
@@ -231,13 +284,13 @@ class Select extends Component {
             noOptionsMessage={(e) => e.inputValue = this.props.noOptionsMessage || 'No Data...'}
             // cacheOptions
             isLoading={this.state.isLoading}
-            isMulti={this.props.multiple}
+            isMulti={false}
             closeMenuOnSelect={(this.props.multiple && this.props.dontClose) ? false : true}
             isClearable={this.props.isClearable}
             inputValue={this.state.query}
             options={this.props.data || this.state.data}
             onInputChange={this.onInputChange.bind(this)}
-            onChange={e => this.props.onChange(e)}
+            onChange={this.onChange.bind(this)}
             onMenuScrollToTop={!this.props.data && this.scrollTo.bind(this, 'top')}
             onMenuScrollToBottom={!this.props.data && this.scrollTo.bind(this, 'bottom')}
           />
