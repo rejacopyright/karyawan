@@ -47,6 +47,7 @@ class Footer extends Component {
               <li> <Link to="/"> <i data-feather="home"></i> <span className="badge badge-danger float-right">1</span> <span> Dashboard </span> </Link> </li>
               <li> <Link to="/user"> <i data-feather="user" /> <span> User </span> </Link> </li>
               <li> <Link to="/absen"> <i data-feather="calendar" /> <span> Absensi </span> </Link> </li>
+              <li> <Link to="/gaji"> <i data-feather="dollar-sign" /> <span> Penggajian </span> </Link> </li>
               <li> <Link to="/devices"> <i data-feather="monitor" /> <span> Display </span> </Link> </li>
               <li> <Link to="/setting"> <i data-feather="settings" /> <span> Pengaturan </span> </Link> </li>
               {/* <li className="menu-title">Components</li> */}

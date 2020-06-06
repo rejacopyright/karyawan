@@ -3,6 +3,7 @@ import axios from 'axios'
 import moment from 'moment'
 import con from "../../con/api"
 // INIT JS
+import Avatar from '../../assets/images/users/avatar.png'
 import feather from 'feather-icons';
 
 const Ads = () => (
@@ -111,8 +112,8 @@ const Device = (props) => (
 )
 class KiosK extends React.Component {
   state = {
+    hadir:[],
     absen:[],
-    belum:[],
     loading: true
   }
   componentDidMount() {
@@ -121,14 +122,15 @@ class KiosK extends React.Component {
     document.body.classList.add('bg-white');
     this.fetchImage = setInterval( () => this.img.src = con.img+'/capture1.jpg?'+Date.now(), 75 );
     // axios.get('http://192.168.92.252/backend/api/image_data').then(res => this.setState({ images:`data:image/jpeg;base64,${res.data}` }));
-    this.fetchData = setInterval(() => {
-      axios.get(con.api+'/user/absen', {headers:con.headers}).then(res => {
-        this.setState({
-          absen: res.data.absen,
-          belum: res.data.belum,
-          loading: false
-        });
+    axios.get(con.api+'/user/absen', {headers:con.headers}).then(res => {
+      console.log(res.data);
+      this.setState({
+        hadir: res.data.hadir,
+        absen: res.data.absen,
+        loading: false
       });
+    });
+    this.fetchData = setInterval(() => {
     }, 1000);
   }
   componentWillUnmount() {
@@ -144,16 +146,21 @@ class KiosK extends React.Component {
               <div className="col-2 pt-3"> <div className="position-sticky" style={{ top: '4rem' }}> <Ads /> </div> </div>
               <div className="col-2 full-height pt-3">
                 <div className="border-bottom border-1 text-center mb-2">
-                  <div className="alert bg-light mb-3 text-secondary f-700">Belum absen</div>
+                  <div className="badge badge-soft-danger d-block text-10 py-2 mb-2 f-700">Absen</div>
                 </div>
                 {
-                  !this.state.loading && this.state.belum.map((r, key) => (
+                  !this.state.loading && this.state.absen.slice(0,5).map((r, key) => (
                     <div className="media mb-2 p-2 border-bottom border-1 radius-10 shadow" key={key}>
-                      <div className="same-50 mx-auto radius-100 border border-gray d-flex align-items-center justify-content-center oh">
-                        <img src={`${con.img}/user/thumb/${r.img}`} alt="" className="h-100"/>
+                      <div className="radius-100 border border-gray center oh">
+                        {
+                          r.img.length ?
+                          <div className="same-30 mx-auto radius-100 oh bg-img" style={{ backgroundImage: `url('${con.img}/user/thumb/${r.img}')` }}> </div>
+                          :
+                          <img src={Avatar} alt="img" className="avatar-xs rounded-circle" />
+                        }
                       </div>
                       <div className="media-body ml-2">
-                        <h5 className="mt-0 mb-0 font-size-14"> {r.name} <p className="badge badge-pill px-2 badge-light d-table mt-1 mb-0">{r.username}</p> </h5>
+                        <h5 className="mt-0 mb-0 font-size-14"> {r.name} <p className="badge badge-pill px-2 badge-light text-truncate d-block wpx-50 mt-1 mb-0">{r.username}</p> </h5>
                         <p className="mt-1 mb-0 text-muted text-truncate text-9"> Jabatan : <span className="text-primary f-600">{r.job}</span> </p>
                       </div>
                     </div>
@@ -180,13 +187,18 @@ class KiosK extends React.Component {
               </div>
               <div className="col-2 full-height pt-3">
                 <div className="border-bottom border-1 text-center mb-2">
-                  <div className="alert bg-soft-success mb-3 text-success f-700">Sudah absen</div>
+                  <div className="badge badge-soft-success d-block text-10 py-2 mb-2 f-700">Hadir</div>
                 </div>
                 {
-                  !this.state.loading && this.state.absen.slice(0,5).map((r, key) => (
+                  !this.state.loading && this.state.hadir.slice(0,5).map((r, key) => (
                     <div className="media mb-2 p-1 pb-2 border-bottom border-1" key={key}>
-                      <div className="same-50 mx-auto radius-100 border border-gray d-flex align-items-center justify-content-center oh">
-                        <img src={`${con.img}/user/thumb/${r.img}`} alt="" className="h-100"/>
+                      <div className="radius-100 border border-gray center oh">
+                        {
+                          r.img.length ?
+                          <div className="same-30 mx-auto radius-100 oh bg-img" style={{ backgroundImage: `url('${con.img}/user/thumb/${r.img}')` }}> </div>
+                          :
+                          <img src={Avatar} alt="img" className="avatar-xs rounded-circle" />
+                        }
                       </div>
                       <div className="media-body ml-2 oh">
                         <h5 className="mt-0 mb-0 font-size-14"> <span className="float-right text-muted font-size-12">{moment(r.created_at).format('HH:mm')}</span> {r.user.name} <p className="badge badge-pill px-2 badge-soft-success d-table mt-1 mb-0">{r.user.username}</p> </h5>

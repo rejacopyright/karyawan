@@ -1,0 +1,67 @@
+[
+  {
+    "brand": "Toyota",
+    "type": "Jeep",
+    "name": "Fortuner VRZ",
+    "varian": "VRZ",
+    "color": "Black",
+    "fuel": "Diesel",
+    "cc": "3.000",
+    "transmission": "Manual",
+    "year": "2020",
+    "feature": "Additional or Special Features Description",
+    "plat": "B 92 RJ"
+  },
+  {
+    "brand": "Toyota",
+    "type": "MPV",
+    "name": "New Avanza Veloz",
+    "varian": "E",
+    "color": "Black",
+    "fuel": "Bensin",
+    "cc": "1.000",
+    "transmission": "Automatic",
+    "year": "2018",
+    "feature": "Additional or Special Features Description",
+    "plat": "B 10 RJ"
+  },
+  {
+    "brand": "Honda",
+    "type": "SUV",
+    "name": "HRV CVT",
+    "varian": "Prestige",
+    "color": "Gray",
+    "fuel": "Bensin",
+    "cc": "1.500",
+    "transmission": "Automatic",
+    "year": "2015",
+    "feature": "Additional or Special Features Description",
+    "plat": "B 86 RJ"
+  },
+  {
+    "brand": "Honda",
+    "type": "SUV",
+    "name": "CRV Turbo",
+    "varian": "Prestige",
+    "color": "White",
+    "fuel": "Bensin",
+    "cc": "2.000",
+    "transmission": "Automatic Triptonnic",
+    "year": "2017",
+    "feature": "Additional or Special Features Description",
+    "plat": "B 10 RJ"
+  },
+  {
+    "brand": "Mitsubishi",
+    "type": "Jeep",
+    "name": "Pajero Sport",
+    "varian": "Dakar",
+    "color": "Black",
+    "fuel": "Diesel",
+    "cc": "3.000",
+    "transmission": "Automatic Triptonnic",
+    "year": "2019",
+    "feature": "Additional or Special Features Description",
+    "plat": "B 18 RJ"
+  }
+]

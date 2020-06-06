@@ -8281,9 +8281,9 @@ a.text-dark:hover, a.text-dark:focus {
     color: $primary; }
 
 .btn-soft-secondary {
-  background-color: rgba(30, 33, 57, 0.15);
+  background-color: $light;
   color: $secondary;
-  border-color: rgba(30, 33, 57, 0.15); }
+  border-color: $gray; }
   .btn-soft-secondary:focus {
     -webkit-box-shadow: none;
             box-shadow: none; }

@@ -1,5 +1,5 @@
-import React from 'react';
-export default class Modal extends React.Component {
+import React, {Component} from 'react';
+export default class Modal extends Component {
   render() {
     return (
       <div className="modal fade" id={this.props.id} role="dialog" aria-hidden="true">

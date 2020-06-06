@@ -51,6 +51,7 @@
 .same-100{ width: 100px !important; height: 100px !important; }
 .same-125{ width: 125px !important; height: 125px !important; }
 .same-150{ width: 150px !important; height: 150px !important; }
+.same-175{ width: 175px !important; height: 175px !important; }
 .same-200{ width: 200px !important; height: 200px !important; }
 .r-unset{ right: unset !important; }
 .r-0{ right: 0 !important; }
@@ -65,37 +66,71 @@
 .lh-1{line-height: 1 !important;}
 .lh-15{line-height: 1.5 !important;}
 .lh-2{line-height: 2 !important;}
-.vh-90{height: 90vh !important;}
-.vh-80{height: 80vh !important;}
+.vh-10{height: 10vh !important;}
+.vh-20{height: 20vh !important;}
+.vh-30{height: 30vh !important;}
+.vh-40{height: 40vh !important;}
+.vh-50{height: 50vh !important;}
 .vh-75{height: 75vh !important;}
-.shadow-xs {
-  -webkit-box-shadow: 0 0.05rem 0.05rem rgba(75, 75, 90, 0.1) !important;
-  box-shadow: 0 0.05rem 0.05rem rgba(75, 75, 90, 0.1) !important;
+.vh-80{height: 80vh !important;}
+.vh-90{height: 90vh !important;}
+
+// OPACITY
+.o-0{opacity: 0 !important;}
+.o-1{opacity: .1 !important;}
+.o-2{opacity: .2 !important;}
+.o-3{opacity: .3 !important;}
+.o-4{opacity: .4 !important;}
+.o-5{opacity: .5 !important;}
+.o-6{opacity: .6 !important;}
+.o-7{opacity: .7 !important;}
+.o-8{opacity: .8 !important;}
+.o-9{opacity: .9 !important;}
+.o-10{opacity: 1 !important;}
+
+// SHADOW
+@mixin shadow($props) {
+  -webkit-box-shadow: $props !important;
+  -moz-box-shadow: $props !important;
+  -ms-box-shadow: $props !important;
+  -o-box-shadow: $props !important;
+  box-shadow: $props !important;
 }
-.shadow-sm {
-  -webkit-box-shadow: 0 0.25rem 0.25rem rgba(75, 75, 90, 0.1) !important;
-  box-shadow: 0 0.25rem 0.25rem rgba(75, 75, 90, 0.1) !important;
+%shadow-xs { @include shadow(0 0.05rem 0.05rem rgba(75, 75, 90, 0.1)); }
+%shadow-sm { @include shadow(0 0.25rem 0.25rem rgba(75, 75, 90, 0.1)); }
+%shadow { @include shadow(0 0.25rem 2rem rgba(0, 0, 0, 0.1)); }
+%shadow-md { @include shadow(0 1rem 2rem rgba(0, 0, 0, 0.1)); }
+%shadow-lg { @include shadow(0 1rem 5rem rgba(0, 0, 0, 0.1)); }
+%shadow-xl { @include shadow(0 1rem 10rem rgba(0, 0, 0, 0.1)); }
+%shadow-none { @include shadow(none); }
+%shadow-img { @include shadow(0 1rem 2rem rgba(0, 0, 0, 0.25)); }
+
+.shadow-xs { @extend %shadow-xs; }
+.shadow-sm { @extend %shadow-sm; }
+.shadow { @extend %shadow; }
+.shadow-md { @extend %shadow-md; }
+.shadow-lg { @extend %shadow-lg; }
+.shadow-xl { @extend %shadow-xl; }
+.shadow-none { @extend %shadow-none; }
+.shadow-img { @extend %shadow-img; }
+
+// TRANSITION
+@mixin transdur($time) {
+  -webkit-transition-duration: $time+s !important;
+  -moz-transition-duration: $time+s !important;
+  -ms-transition-duration: $time+s !important;
+  -o-transition-duration: $time+s !important;
+  transition-duration: $time+s !important;
 }
-.shadow {
-  -webkit-box-shadow: 0 0.25rem 2rem rgba(0, 0, 0, 0.1) !important;
-  box-shadow: 0 0.25rem 2rem rgba(0, 0, 0, 0.1) !important;
-}
-.shadow-md {
-  -webkit-box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1) !important;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1) !important;
-}
-.shadow-lg {
-  -webkit-box-shadow: 0 1rem 5rem rgba(0, 0, 0, 0.1) !important;
-  box-shadow: 0 1rem 5rem rgba(0, 0, 0, 0.1) !important;
-}
-.shadow-xl {
-  -webkit-box-shadow: 0 1rem 10rem rgba(0, 0, 0, 0.1) !important;
-  box-shadow: 0 1rem 10rem rgba(0, 0, 0, 0.1) !important;
-}
-.shadow-none {
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
-}
+.hover-xs:hover { @extend %shadow-xs;@include transdur(.25); }
+.hover-sm:hover { @extend %shadow-sm;@include transdur(.25); }
+.hover:hover { @extend %shadow;@include transdur(.25); }
+.hover-md:hover { @extend %shadow-md;@include transdur(.25); }
+.hover-lg:hover { @extend %shadow-lg;@include transdur(.25); }
+.hover-xl:hover { @extend %shadow-xl;@include transdur(.25); }
+.hover-none:hover { @extend %shadow-none;@include transdur(.25); }
+.hover-img:hover { @extend %shadow-img;@include transdur(.25); }
+
 .strong{ font-weight: 700 !important; }
 .f-100{ font-weight: 100 !important; }
 .f-200{ font-weight: 200 !important; }
@@ -128,6 +163,17 @@
   -webkit-box-pack: center !important;
   -ms-flex-pack: center !important;
   justify-content: center !important;
+}
+.center-right {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-align: center !important;
+  -ms-flex-align: center !important;
+  align-items: center !important;
+  -webkit-box-pack: flex-end !important;
+  -ms-flex-pack: flex-end !important;
+  justify-content: flex-end !important;
 }
 .center-left {
   display: -webkit-box !important;
