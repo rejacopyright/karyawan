@@ -82,6 +82,7 @@ class Hadir extends React.Component {
   render () {
     return (
       <Fragment>
+        <DateRange />
         <div className="center">
           <div className="col pl-0">
             <div className="btn-group my-2">
@@ -91,36 +92,35 @@ class Hadir extends React.Component {
                 onClick={this.sortby.bind(this, 'name')}
                 >
                   Name
-                {this.state.params.sortby === 'name' ? this.state.params.type === 'asc' ? <i className="uil text-9 uil-arrow-up ml-1"/> : <i className="uil text-9 uil-arrow-down ml-1"/> : ''}
-              </span>
-              <span
-                className={`btn pointer center btn-xs py-0 ${this.state.params.sortby === 'counter' ? 'btn-soft-primary' : 'btn-soft-secondary'} radius-50 hover mr-1 text-nowrap`}
-                onClick={this.sortby.bind(this, 'counter')}
-                >
-                  Counter
-                {this.state.params.sortby === 'counter' ? this.state.params.type === 'asc' ? <i className="uil text-9 uil-arrow-up ml-1"/> : <i className="uil text-9 uil-arrow-down ml-1"/> : ''}
-              </span>
-              <span
-                className={`btn pointer center btn-xs py-0 ${this.state.params.sortby === 'checkin' ? 'btn-soft-primary' : 'btn-soft-secondary'} radius-50 hover mr-1 text-nowrap`}
-                onClick={this.sortby.bind(this, 'checkin')}
-                >
-                  Check-In
-                {this.state.params.sortby === 'checkin' ? this.state.params.type === 'asc' ? <i className="uil text-9 uil-arrow-up ml-1"/> : <i className="uil text-9 uil-arrow-down ml-1"/> : ''}
-              </span>
+                  {this.state.params.sortby === 'name' ? this.state.params.type === 'asc' ? <i className="uil text-9 uil-arrow-up ml-1"/> : <i className="uil text-9 uil-arrow-down ml-1"/> : ''}
+                </span>
                 <span
-                className={`btn pointer center btn-xs py-0 ${this.state.params.sortby === 'checkout' ? 'btn-soft-primary' : 'btn-soft-secondary'} radius-50 hover mr-1 text-nowrap`}
-                onClick={this.sortby.bind(this, 'checkout')}
-                >
-                  Check-Out
-                {this.state.params.sortby === 'checkout' ? this.state.params.type === 'asc' ? <i className="uil text-9 uil-arrow-up ml-1"/> : <i className="uil text-9 uil-arrow-down ml-1"/> : ''}
-              </span>
-            </div>
-          </div>
-        </div>
+                  className={`btn pointer center btn-xs py-0 ${this.state.params.sortby === 'counter' ? 'btn-soft-primary' : 'btn-soft-secondary'} radius-50 hover mr-1 text-nowrap`}
+                  onClick={this.sortby.bind(this, 'counter')}
+                  >
+                    Counter
+                    {this.state.params.sortby === 'counter' ? this.state.params.type === 'asc' ? <i className="uil text-9 uil-arrow-up ml-1"/> : <i className="uil text-9 uil-arrow-down ml-1"/> : ''}
+                  </span>
+                  <span
+                    className={`btn pointer center btn-xs py-0 ${this.state.params.sortby === 'checkin' ? 'btn-soft-primary' : 'btn-soft-secondary'} radius-50 hover mr-1 text-nowrap`}
+                    onClick={this.sortby.bind(this, 'checkin')}
+                    >
+                      Check-In
+                      {this.state.params.sortby === 'checkin' ? this.state.params.type === 'asc' ? <i className="uil text-9 uil-arrow-up ml-1"/> : <i className="uil text-9 uil-arrow-down ml-1"/> : ''}
+                    </span>
+                    <span
+                      className={`btn pointer center btn-xs py-0 ${this.state.params.sortby === 'checkout' ? 'btn-soft-primary' : 'btn-soft-secondary'} radius-50 hover mr-1 text-nowrap`}
+                      onClick={this.sortby.bind(this, 'checkout')}
+                      >
+                        Check-Out
+                        {this.state.params.sortby === 'checkout' ? this.state.params.type === 'asc' ? <i className="uil text-9 uil-arrow-up ml-1"/> : <i className="uil text-9 uil-arrow-down ml-1"/> : ''}
+                      </span>
+                    </div>
+                  </div>
+                </div>
         <div className="center">
           <h5 className="col pb-2 pl-0 mb-3 border-bottom border-2"><i data-feather="user-check" className="icon-dual icon-xs mb-1 mr-2" />List karyawan yang hadir <span className="text-primary text-10">({this.state.params.date.format('dddd, D MMMM YYYY')})</span></h5>
           <span className="same-50 radius-50 pointer" data-toggle="modal" data-target="#dateRange"><i className="uil uil-trash"/></span>
-          <DateRange id="dateRange"/>
           <div className="same-50 pr-0 text-right border border-1 radius-50 center">
             <DatePicker
               name="date"
