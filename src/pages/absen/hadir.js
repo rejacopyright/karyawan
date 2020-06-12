@@ -4,12 +4,13 @@ import axios from "axios"
 import con from "../../con/api"
 import List from "./list"
 // Date
-import moment from 'moment'
-import 'moment/locale/id'
-import DatePicker from '../../components/datePicker'
+import moment from "moment"
 import DateRange from '../../components/dateRange'
 import Skeleton from 'react-skeleton-loader'
 import Pagination from '../../components/pagination'
+
+// Export
+import XLSX from 'xlsx'
 
 const Loading = () => (
   <div className="row align-items-center mb-0 mt-3">
@@ -30,14 +31,15 @@ class Hadir extends React.Component {
     pagination:{},
     params:{
       page:1,
-      date: moment(),
+      from: moment(),
+      to: moment(),
       q:this.props.search || null,
       sortby: 'name',
       type: 'asc'
     }
   }
   dataset(){
-    axios.get(con.api+'/absen/hadir', {headers:con.headers, params:{...this.state.params, date:this.state.params.date.format('YYYY-MM-DD')} }).then(res => {
+    axios.get(con.api+'/absen/hadir', {headers:con.headers, params:{...this.state.params, from:this.state.params.from.format('Y-MM-DD'), to:this.state.params.to.format('Y-MM-DD')} }).then(res => {
       this.setState({ user: res.data.hadir, pagination: res.data.page, loading: false });
     });
   }
@@ -58,8 +60,9 @@ class Hadir extends React.Component {
   componentWillUnmount() {
     this._isMounted = false;
   }
-  onDateChange(m){
-    this.setState({params:{...this.state.params, date:m}, loading: true}, this.dataset);
+  onDateRangeChange(r){
+    this.setState({params:{...this.state.params, from:moment(r.startDate), to:moment(r.endDate)}, loading: true}, this.dataset);
+    console.log(r.startDate);
   }
   sortby(e){
     const sortby = this.state.params.sortby;
@@ -79,57 +82,69 @@ class Hadir extends React.Component {
     }
     console.log(sortby === e);
   }
+  exportPDF(){
+    console.log('export PDF');
+  }
+  exportExcel(){
+    const dataset = [['No.', 'ID', 'Nama', 'Jabatan', 'Tanggal', 'Jam Masuk', 'Jam Pulang']];
+    axios.get(con.api+'/absen/hadir/export', {headers:con.headers, params:{...this.state.params, from:this.state.params.from.format('Y-MM-DD'), to:this.state.params.to.format('Y-MM-DD')} }).then(res => {
+      res.data.hadir.map(a => {
+        let res = (({user_id, name, jabatan, created_at, first_capture, last_capture}) => ({user_id, name, jabatan, created_at, first_capture, last_capture}))(a);
+        return res;
+      }).map((rj, no) => {
+        return dataset.push([no+1, 'K-'+(rj.user_id).toString().padStart(8,'0'), rj.name, rj.jabatan, moment(rj.created_at).format('DD-MM-Y'), moment(rj.first_capture).format('HH:mm'), moment(rj.last_capture).format('HH:mm')]);
+      });
+      // console.log(dataset);
+      const filename = this.state.params.from.format('YMD') === this.state.params.to.format('YMD') ? this.state.params.from.format('DD-MM-Y') : `${this.state.params.from.format('DD-MM-Y')} - ${this.state.params.to.format('DD-MM-Y')}`;
+      const ws = XLSX.utils.aoa_to_sheet(dataset);
+  		const wb = XLSX.utils.book_new();
+  		XLSX.utils.book_append_sheet(wb, ws, filename);
+  		XLSX.writeFile(wb, `Data Karyawan Hadir (${filename}).xlsx`);
+    });
+  }
   render () {
     return (
       <Fragment>
-        <DateRange />
         <div className="center">
           <div className="col pl-0">
             <div className="btn-group my-2">
               <span className="center pr-2 mr-2 border-right"><i className="uil uil-filter"/></span>
-              <span
-                className={`btn pointer center btn-xs py-0 ${this.state.params.sortby === 'name' ? 'btn-soft-primary' : 'btn-soft-secondary'} radius-50 hover mr-1 text-nowrap`}
-                onClick={this.sortby.bind(this, 'name')}
-                >
-                  Name
-                  {this.state.params.sortby === 'name' ? this.state.params.type === 'asc' ? <i className="uil text-9 uil-arrow-up ml-1"/> : <i className="uil text-9 uil-arrow-down ml-1"/> : ''}
-                </span>
-                <span
-                  className={`btn pointer center btn-xs py-0 ${this.state.params.sortby === 'counter' ? 'btn-soft-primary' : 'btn-soft-secondary'} radius-50 hover mr-1 text-nowrap`}
-                  onClick={this.sortby.bind(this, 'counter')}
-                  >
-                    Counter
-                    {this.state.params.sortby === 'counter' ? this.state.params.type === 'asc' ? <i className="uil text-9 uil-arrow-up ml-1"/> : <i className="uil text-9 uil-arrow-down ml-1"/> : ''}
-                  </span>
-                  <span
-                    className={`btn pointer center btn-xs py-0 ${this.state.params.sortby === 'checkin' ? 'btn-soft-primary' : 'btn-soft-secondary'} radius-50 hover mr-1 text-nowrap`}
-                    onClick={this.sortby.bind(this, 'checkin')}
-                    >
-                      Check-In
-                      {this.state.params.sortby === 'checkin' ? this.state.params.type === 'asc' ? <i className="uil text-9 uil-arrow-up ml-1"/> : <i className="uil text-9 uil-arrow-down ml-1"/> : ''}
-                    </span>
-                    <span
-                      className={`btn pointer center btn-xs py-0 ${this.state.params.sortby === 'checkout' ? 'btn-soft-primary' : 'btn-soft-secondary'} radius-50 hover mr-1 text-nowrap`}
-                      onClick={this.sortby.bind(this, 'checkout')}
-                      >
-                        Check-Out
-                        {this.state.params.sortby === 'checkout' ? this.state.params.type === 'asc' ? <i className="uil text-9 uil-arrow-up ml-1"/> : <i className="uil text-9 uil-arrow-down ml-1"/> : ''}
-                      </span>
-                    </div>
-                  </div>
-                </div>
+              <span className={`btn pointer center btn-xs py-0 ${this.state.params.sortby === 'name' ? 'btn-soft-primary' : 'btn-soft-secondary'} radius-50 hover mr-1 text-nowrap`} onClick={this.sortby.bind(this, 'name')} >
+                Name {this.state.params.sortby === 'name' ? this.state.params.type === 'asc' ? <i className="uil text-9 uil-arrow-up ml-1"/> : <i className="uil text-9 uil-arrow-down ml-1"/> : ''}
+              </span>
+              <span className={`btn pointer center btn-xs py-0 ${this.state.params.sortby === 'counter' ? 'btn-soft-primary' : 'btn-soft-secondary'} radius-50 hover mr-1 text-nowrap`} onClick={this.sortby.bind(this, 'counter')} >
+                Counter {this.state.params.sortby === 'counter' ? this.state.params.type === 'asc' ? <i className="uil text-9 uil-arrow-up ml-1"/> : <i className="uil text-9 uil-arrow-down ml-1"/> : ''}
+              </span>
+              <span className={`btn pointer center btn-xs py-0 ${this.state.params.sortby === 'checkin' ? 'btn-soft-primary' : 'btn-soft-secondary'} radius-50 hover mr-1 text-nowrap`} onClick={this.sortby.bind(this, 'checkin')} >
+                Check-In {this.state.params.sortby === 'checkin' ? this.state.params.type === 'asc' ? <i className="uil text-9 uil-arrow-up ml-1"/> : <i className="uil text-9 uil-arrow-down ml-1"/> : ''}
+              </span>
+              <span className={`btn pointer center btn-xs py-0 ${this.state.params.sortby === 'checkout' ? 'btn-soft-primary' : 'btn-soft-secondary'} radius-50 hover mr-1 text-nowrap`} onClick={this.sortby.bind(this, 'checkout')} >
+                Check-Out {this.state.params.sortby === 'checkout' ? this.state.params.type === 'asc' ? <i className="uil text-9 uil-arrow-up ml-1"/> : <i className="uil text-9 uil-arrow-down ml-1"/> : ''}
+              </span>
+            </div>
+          </div>
+          <div className="col text-right">
+            <div className="btn-group">
+              <span className="btn pointer center btn-xs radius-10 hover btn-soft-danger mr-2" onClick={this.exportPDF.bind(this)} > <i className="uil text-9 uil-file-download mr-1"/> PDF </span>
+              <span className="btn pointer center btn-xs radius-10 hover btn-soft-success" onClick={this.exportExcel.bind(this)} > <i className="uil text-9 uil-file-download-alt mr-1"/> Excel </span>
+            </div>
+          </div>
+        </div>
         <div className="center">
-          <h5 className="col pb-2 pl-0 mb-3 border-bottom border-2"><i data-feather="user-check" className="icon-dual icon-xs mb-1 mr-2" />List karyawan yang hadir <span className="text-primary text-10">({this.state.params.date.format('dddd, D MMMM YYYY')})</span></h5>
-          <span className="same-50 radius-50 pointer" data-toggle="modal" data-target="#dateRange"><i className="uil uil-trash"/></span>
+          <h5 className="col pb-2 pl-0 mb-3 border-bottom border-2">
+            <i data-feather="user-check" className="icon-dual icon-xs mb-1 mr-2" />
+            List karyawan yang hadir
+            <span className="text-primary text-8">
+              {
+                this.state.params.from.format('YMD') === this.state.params.to.format('YMD') ?
+                ` (${this.state.params.from.format('dddd, D MMMM Y')})`
+                :
+                ` (${this.state.params.from.format('dddd, D MMMM Y')} - ${this.state.params.to.format('dddd, D MMMM Y')})`
+              }
+            </span>
+          </h5>
           <div className="same-50 pr-0 text-right border border-1 radius-50 center">
-            <DatePicker
-              name="date"
-              className={`btn-sm btn-soft-primary radius-50 hover`}
-              defaultValue={this.state.params.date}
-              disableFuture
-              showToday
-              onChange={this.onDateChange.bind(this)}
-            />
+            <DateRange onChange={this.onDateRangeChange.bind(this)} />
           </div>
         </div>
         {
@@ -137,11 +152,11 @@ class Hadir extends React.Component {
           this.state.user.map((r, key) => (
             <List
               key={key}
-              userID={1}
+              link={`/absen/hadir/${r.user.user_id}/${this.state.params.from.format('x')}/${this.state.params.to.format('x')}`}
               name={r.user.name}
               userName={r.user.username}
               userDesc={`${r.count}x Terdeteksi`}
-              time={[moment(r.first_capture).format('HH:mm'), ' - ', <span className="text-danger f-700" key={key}>{moment(r.last_capture).format('HH:mm')}</span>]}
+              time={[moment(r.first_capture).format('dddd, D MMMM Y'), ' (', <span className="f-700" key={key}><span className="text-success">{moment(r.first_capture).format('HH:mm')}</span> - <span className="text-danger">{moment(r.last_capture).format('HH:mm')}</span></span>, ')']}
               avatar={r.img} />
           ))
         }

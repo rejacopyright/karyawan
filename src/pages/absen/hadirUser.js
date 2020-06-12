@@ -1,11 +1,9 @@
 import React, {Fragment} from 'react'
-import { connect } from 'react-redux'
 import axios from "axios"
 import con from "../../con/api"
 import List from "./list"
 // Date
 import moment from "moment"
-import DateRange from '../../components/dateRange'
 import Skeleton from 'react-skeleton-loader'
 import Pagination from '../../components/pagination'
 
@@ -19,25 +17,26 @@ const Loading = () => (
     </div>
   </div>
 )
-class Absen extends React.Component {
+class HadirUser extends React.Component {
   _isMounted = false;
   state = {
-    user:[],
+    hadir:[],
     loading: true,
     page:1,
     pagination:{},
     params:{
       page:1,
-      from: moment(),
-      to: moment(),
+      user_id: this.props.match.params.user_id,
+      from: moment.unix(this.props.match.params.from/1000),
+      to: moment.unix(this.props.match.params.to/1000),
       q:this.props.search || null,
-      sortby: 'name',
-      type: 'asc'
+      sortby: 'checkin',
+      type: 'desc'
     }
   }
   dataset(){
-    axios.get(con.api+'/absen/absen', {headers:con.headers, params:{...this.state.params, from:this.state.params.from.format('Y-MM-DD'), to:this.state.params.to.format('Y-MM-DD')} }).then(res => {
-      this.setState({ user: res.data.absen, pagination: res.data.page, loading: false });
+    axios.get(con.api+'/absen/hadir/user', {headers:con.headers, params:{...this.state.params, user_id:this.state.params.user_id, from:this.state.params.from.format('Y-MM-DD'), to:this.state.params.to.format('Y-MM-DD')} }).then(res => {
+      this.setState({ user: res.data.user, hadir: res.data.hadir, pagination: res.data.page, loading: false });
     });
   }
   pagination(e){
@@ -47,12 +46,7 @@ class Absen extends React.Component {
     this._isMounted = true;
     this._isMounted && this.dataset();
     this._isMounted && import('feather-icons').then(f => f.replace());
-    document.title = 'Absen Hari Ini';
-  }
-  componentDidUpdate(prev){
-    if (this.props.search !== prev.search && this._isMounted) {
-      this.setState({params:{...this.state.params, q:this.props.search}, loading: true}, this.dataset);
-    }
+    document.title = 'Absen Hari Inix';
   }
   componentWillUnmount() {
     this._isMounted = false;
@@ -85,38 +79,45 @@ class Absen extends React.Component {
         <div className="center">
           <div className="col pl-0">
             <div className="btn-group my-2">
-              <span className="center pr-2 mr-2 border-right"><i className="uil uil-filter"/></span>
-              <span className={`btn pointer center btn-xs py-0 ${this.state.params.sortby === 'name' ? 'btn-soft-primary' : 'btn-soft-secondary'} radius-50 hover mr-1 text-nowrap`} onClick={this.sortby.bind(this, 'name')} >
-                Name {this.state.params.sortby === 'name' ? this.state.params.type === 'asc' ? <i className="uil text-9 uil-arrow-up ml-1"/> : <i className="uil text-9 uil-arrow-down ml-1"/> : ''}
+              <span className="center pr-2 mr-2 border-right pointer" onClick={() => this.props.history.push('/absen/hadir')}><i className="uil uil-arrow-left"/></span>
+              <span className={`btn pointer center btn-xs py-0 ${this.state.params.sortby === 'checkin' ? 'btn-soft-primary' : 'btn-soft-secondary'} radius-50 hover mr-1 text-nowrap`} onClick={this.sortby.bind(this, 'checkin')} >
+                Sort By Date {this.state.params.sortby === 'checkin' ? this.state.params.type === 'desc' ? <i className="uil text-9 uil-arrow-up ml-1"/> : <i className="uil text-9 uil-arrow-down ml-1"/> : ''}
               </span>
             </div>
           </div>
         </div>
         <div className="center">
           <h5 className="col pb-2 pl-0 mb-3 border-bottom border-2">
-            <i data-feather="user-check" className="icon-dual icon-xs mb-1 mr-2" />
-            List karyawan yang absen
-            <span className="text-primary text-8">
-              {
-                this.state.params.from.format('YMD') === this.state.params.to.format('YMD') ?
-                ` (${this.state.params.from.format('dddd, D MMMM Y')})`
-                :
-                ` (${this.state.params.from.format('dddd, D MMMM Y')} - ${this.state.params.to.format('dddd, D MMMM Y')})`
+            <div className="center-left">
+              { this.state.user &&
+                <Fragment>
+                  <div className="same-40 radius-100 center oh border border-gray bg-img mr-3" style={{ backgroundImage: `url('${con.img}/user/thumb/${this.state.user.avatar}')` }} />
+                  <div className="mr-3">
+                    <p className="lh-1 m-0">{this.state.user.name}</p>
+                    <p className="lh-12 m-0 text-10 text-muted">@{this.state.user.username}</p>
+                  </div>
+                </Fragment>
               }
-            </span>
+              <div className="text-primary text-9">
+                <i className="uil uil-calendar-alt mr-2" />
+                {
+                  this.state.params.from.format('YMD') === this.state.params.to.format('YMD') ?
+                  this.state.params.from.format('dddd, D MMMM Y')
+                  :
+                  this.state.params.from.format('dddd, D MMMM Y') +' - '+ this.state.params.to.format('dddd, D MMMM Y')
+                }
+              </div>
+            </div>
           </h5>
-          <div className="same-50 pr-0 text-right border border-1 radius-50 center">
-            <DateRange onChange={this.onDateRangeChange.bind(this)} />
-          </div>
         </div>
         {
           this.state.loading ? [1,2,3].map(key => <Loading key={key} />) :
-          this.state.user.map((r, key) => (
+          this.state.hadir.map((r, key) => (
             <List
               key={key}
-              userID={1}
-              name={r.user.name}
-              userName={r.user.username}
+              name={moment(r.created_at).format('dddd, D MMMM Y')}
+              userName={<div className="mt-1 text-primary f-600">{moment(r.created_at).format('HH:mm')}</div>}
+              // userDesc={`${r.count}x Terdeteksis`}
               avatar={r.img} />
           ))
         }
@@ -126,4 +127,4 @@ class Absen extends React.Component {
   }
 }
 
-export default connect(s => s)(Absen);
+export default HadirUser;

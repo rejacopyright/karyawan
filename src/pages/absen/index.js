@@ -4,6 +4,7 @@ import axios from "axios"
 import con from "../../con/api"
 // STATUS PAGES
 import Hadir from "./hadir"
+import HadirUser from "./hadirUser"
 import Absen from "./absen"
 import Ijin from "./ijin"
 import Cuti from "./cuti"
@@ -74,11 +75,12 @@ class Index extends React.Component {
                     </div> */}
                     <div className="mt-2">
                       <Switch>
-                        <Route path="/absen/hadir" component={Hadir} />
-                        <Route path="/absen/absen" component={Absen} />
-                        <Route path="/absen/ijin" component={Ijin} />
-                        <Route path="/absen/cuti" component={Cuti} />
-                        <Route path="/absen/detail/:user_id" component={Detail} />
+                        <Route exact path="/absen/hadir" component={Hadir} />
+                        <Route exact path="/absen/:status/:user_id/:from/:to" component={HadirUser} />
+                        <Route exact path="/absen/absen" component={Absen} />
+                        <Route exact path="/absen/ijin" component={Ijin} />
+                        <Route exact path="/absen/cuti" component={Cuti} />
+                        <Route exact path="/absen/detail/:user_id" component={Detail} />
                         <Route path="/absen" component={Hadir} />
                       </Switch>
                       {/* <DateValue.Provider value={this.state.date}>
