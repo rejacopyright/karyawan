@@ -218,3 +218,35 @@
   margin-top: -4.5rem !important;
   padding-bottom: 4.5rem !important;
 }
+
+// Animated Background
+.bg-anim {
+    background: linear-gradient(150deg, #c6f39e, #306f60, #2f5f75, #4583e0);
+    background-size: 800% 800%;
+
+    -webkit-animation: bgAnim 31s ease infinite;
+    -moz-animation: bgAnim 31s ease infinite;
+    -o-animation: bgAnim 31s ease infinite;
+    animation: bgAnim 31s ease infinite;
+}
+
+@-webkit-keyframes bgAnim {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes bgAnim {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-o-keyframes bgAnim {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes bgAnim {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}

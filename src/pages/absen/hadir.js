@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import axios from "axios"
 import con from "../../con/api"
 import List from "./list"
+import { ClassicSpinner } from "react-spinners-kit";
 // Date
 import moment from "moment"
 import DateRange from '../../components/dateRange'
@@ -27,6 +28,7 @@ class Hadir extends React.Component {
   state = {
     user:[],
     loading: true,
+    pageload: false,
     page:1,
     pagination:{},
     params:{
@@ -86,13 +88,14 @@ class Hadir extends React.Component {
     console.log('export PDF');
   }
   exportExcel(){
+    this.setState({pageload:true});
     const dataset = [['No.', 'ID', 'Nama', 'Jabatan', 'Tanggal', 'Jam Masuk', 'Jam Pulang']];
     axios.get(con.api+'/absen/hadir/export', {headers:con.headers, params:{...this.state.params, from:this.state.params.from.format('Y-MM-DD'), to:this.state.params.to.format('Y-MM-DD')} }).then(res => {
       res.data.hadir.map(a => {
         let res = (({user_id, name, jabatan, created_at, first_capture, last_capture}) => ({user_id, name, jabatan, created_at, first_capture, last_capture}))(a);
         return res;
       }).map((rj, no) => {
-        return dataset.push([no+1, 'K-'+(rj.user_id).toString().padStart(8,'0'), rj.name, rj.jabatan, moment(rj.created_at).format('DD-MM-Y'), moment(rj.first_capture).format('HH:mm'), moment(rj.last_capture).format('HH:mm')]);
+        return dataset.push([no+1, 'R-'+(rj.user_id).toString().padStart(8,'0'), rj.name, rj.jabatan, moment(rj.created_at).format('DD-MM-Y'), moment(rj.first_capture).format('HH:mm'), moment(rj.last_capture).format('HH:mm')]);
       });
       // console.log(dataset);
       const filename = this.state.params.from.format('YMD') === this.state.params.to.format('YMD') ? this.state.params.from.format('DD-MM-Y') : `${this.state.params.from.format('DD-MM-Y')} - ${this.state.params.to.format('DD-MM-Y')}`;
@@ -100,11 +103,12 @@ class Hadir extends React.Component {
   		const wb = XLSX.utils.book_new();
   		XLSX.utils.book_append_sheet(wb, ws, filename);
   		XLSX.writeFile(wb, `Data Karyawan Hadir (${filename}).xlsx`);
-    });
+    }).then(() => this.setState({pageload:false}));
   }
   render () {
     return (
       <Fragment>
+        { this.state.pageload && <div className="overlay center"><ClassicSpinner color="#5369f8" loading={true} /></div> }
         <div className="center">
           <div className="col pl-0">
             <div className="btn-group my-2">

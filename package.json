@@ -39,6 +39,7 @@
     "react-date-range": "^1.0.3",
     "react-dom": "^16.13.0",
     "react-number-format": "^4.4.1",
+    "react-particles-js": "^3.2.1",
     "react-pdf": "^4.1.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",

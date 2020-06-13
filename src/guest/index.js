@@ -4,7 +4,7 @@ import {BrowserRouter, Switch, Route} from "react-router-dom";
 import feather from 'feather-icons';
 import TopBar from './topbar';
 // ROUTES
-const KiosK = React.lazy(() => import('./pages/kiosk'));
+const KiosK = React.lazy(() => import('./pages/kiosk_v2'));
 const KiosKv2 = React.lazy(() => import('./pages/car'));
 const Display = React.lazy(() => import('./pages/display'));
 
