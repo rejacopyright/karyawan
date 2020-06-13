@@ -4,10 +4,10 @@ import moment from 'moment'
 import con from "../../con/api"
 // INIT JS
 import Particles from 'react-particles-js'
-import particleJson from '../../components/particle'
+// import particleJson from '../../components/particle'
 import Select from '../../components/select'
-import Avatar from '../../assets/images/users/avatar.png'
-import Logo from "../../assets/images/logo-letter.png"
+// import Avatar from '../../assets/images/users/avatar.png'
+import Logo from "../../assets/images/logo.png"
 
 const UserCard = (props) => (
   <div className="col-4 px-1">
@@ -130,11 +130,15 @@ class KiosK extends React.Component {
           <div className="container-fluid col-md-12 px-3">
             <div className="row">
               {/* User Card */}
-              <div className="col-md-5 col-12 pt-3">
+              <div className={`col-md-5 col-12 pt-3`}>
                 <div className="row position-sticky" style={{ top: '0rem' }}>
                   <div className="col-12">
-                    <div className="p-3 center-left radius-50 mb-2" style={{backgroundColor: 'rgba(255,255,255,.15)'}}>
-                      <img src={Logo} alt="" className="w-50" />
+                    <div className="p-2 center-left radius-50 mb-2" style={{backgroundColor: 'rgba(255,255,255,.15)'}}>
+                      <img src={Logo} alt="" height={35} className="pl-2" />
+                      <div className="text-white pl-2">
+                        <h5 className="m-0 lh-1 f-900 text-white">HUTAMAKARYA</h5>
+                        <p className="m-0 lh-1 f-600">Realtindo</p>
+                      </div>
                       <button type="button" className="btn btn-xs btn-soft-light radius-20 ml-auto" onClick={this.refresh.bind(this)}>Refresh Devices</button>
                     </div>
                     <div className="card shadow mb-2" style={{backgroundColor: 'unset'}}>
@@ -166,26 +170,30 @@ class KiosK extends React.Component {
                   </div>
                 </div>
               </div>
-              {/* Hadir */}
-              <div className="col-md-2 col-4 full-height pt-3">
-                <div className="border-bottom border-1 text-center mb-2">
-                  <div className="badge badge-soft-danger d-block text-10 py-2 mb-2 f-700">Absen</div>
+              {/* Absen */}
+              {
+                Object.values(this.state.absen).length > 0 &&
+                <div className={`col-md-2 col-4 full-height pt-3`}>
+                  <div className="border-bottom border-1 text-center mb-2">
+                    <div className="badge badge-soft-danger d-block text-10 py-2 mb-2 f-700">Absen</div>
+                  </div>
+                  {
+                    !this.state.loading && this.state.absen.map((r, key) => (
+                      <div className="media center mt-2 p-2 radius-5 shadow-lg" key={key} style={{backgroundColor: 'rgba(0,0,0,.15)'}}>
+                        <div className="radius-100 center oh">
+                          <div className="avatar-xs rounded-circle oh bg-img" style={{ backgroundImage: `url('${con.img}/user/thumb/${r.img}')` }}> </div>
+                        </div>
+                        <div className="media-body ml-2 text-truncate">
+                          <h6 className="m-0 text-9 text-truncate text-white"> {r.name}</h6>
+                          <p className="m-0 text-muted text-truncate text-9"> <span className="badge badge-soft-primary f-600">{r.plat}</span> </p>
+                        </div>
+                      </div>
+                    ))
+                  }
                 </div>
-                {
-                  !this.state.loading && this.state.absen.map((r, key) => (
-                    <div className="media center mt-2 p-2 radius-5 shadow-lg" key={key} style={{backgroundColor: 'rgba(0,0,0,.15)'}}>
-                      <div className="radius-100 center oh">
-                        <div className="avatar-xs rounded-circle oh bg-img" style={{ backgroundImage: `url('${con.img}/user/thumb/${r.img}')` }}> </div>
-                      </div>
-                      <div className="media-body ml-2 text-truncate">
-                        <h6 className="m-0 text-9 text-truncate text-white"> {r.name}</h6>
-                        <p className="m-0 text-muted text-truncate text-9"> <span className="badge badge-soft-primary f-600">{r.plat}</span> </p>
-                      </div>
-                    </div>
-                  ))
-                }
-              </div>
-              <div className="col-md-5 col-8 full-height pt-3">
+              }
+              {/* Hadir */}
+              <div className={`${Object.values(this.state.absen).length > 0 ? 'col-md-5 col-8' : 'col-md-7 col-12'} full-height pt-3`}>
                 <div className="border-bottom border-1 text-center">
                   <div className="badge badge-soft-success d-block text-10 py-2 mb-2 f-700">Karyawan Hadir</div>
                 </div>

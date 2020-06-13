@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import con from '../con/api'
-import Logo from '../assets/images/logo-letter.png'
+import Logo from '../assets/images/logo.png'
 
 class TopBar extends Component {
   state = {
@@ -19,9 +19,9 @@ class TopBar extends Component {
       <div className="navbar navbar-expand flex-column flex-md-row navbar-custom">
         <div className="container-fluid">
           <Link to="#" className="navbar-brand mr-0 mr-md-2 logo">
-            <span className="logo-lg">
-              <img src={Logo} alt="img" height={24} />
-              {/* <span className="d-inline h5 ml-1 text-logo">{this.props.setting.name || this.state.setting.name || '-'} </span> */}
+            <span className="logo-lg center-left">
+              <img src={Logo} alt="img" height={20} />
+              <span className="d-inline h5 ml-1 text-logo">{this.props.setting.name || this.state.setting.name || '-'} </span>
             </span>
             <span className="logo-sm"> <img src={Logo} alt="img" height={24} /> </span>
           </Link>

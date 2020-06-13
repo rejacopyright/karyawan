@@ -45,9 +45,9 @@ class Login extends Component {
                   <div className="row">
                     <div className="col px-5 py-4 border-right border-1">
                       <div className="mx-auto mb-4">
-                        <span>
-                          <img src={require("../assets/images/logo.png")} className="mr-2" alt="" height={25} />
-                          <h3 className="d-inline align-middle ml-1 text-logo">Sugihart</h3>
+                        <span className="center-left">
+                          <img src={require("../assets/images/logo.png")} className="mr-2" alt="" height={35} />
+                          <h3 className="d-inline align-middle ml-1 text-logo text-14">Hutamakarya <p className="m-0 text-9">Realtindo</p></h3>
                         </span>
                       </div>
                       <h5 className="mb-0"> Login </h5>
