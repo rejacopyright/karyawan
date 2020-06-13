@@ -40,7 +40,7 @@ class KiosK extends React.Component {
     deviceAll:[],
     devicesDefault:null,
     selectedDevices:[],
-    speed: 1000
+    speed: 100
   }
   componentDidMount() {
     this._isMounted = true;
