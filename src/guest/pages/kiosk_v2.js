@@ -107,7 +107,7 @@ class KiosK extends React.Component {
         <Particles canvasClassName="bg-anim position-fixed vh-100 w-100" params={{
           "particles": {
             "number": {
-              "value": 25,
+              "value": 50,
               "density":{
                 "enable": true,
                 "value_area":1000
