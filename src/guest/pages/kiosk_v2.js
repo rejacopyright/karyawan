@@ -199,7 +199,7 @@ class KiosK extends React.Component {
                 </div>
                 <div className="row mx-0">
                   {
-                    !this.state.loading && this.state.hadir.slice(0,5).map((r, key) => (
+                    !this.state.loading && this.state.hadir.map((r, key) => (
                       <div className="col-md-6 px-1 pt-2" key={key}>
                         <div className="center-left p-2 shadow-lg radius-10" style={{backgroundColor: 'rgba(0,0,0,.15)'}}>
                           <div className="center col-auto px-0">
